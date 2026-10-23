@@ -1,0 +1,2218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Shanily Nierves</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Portfolio of Shanily B. Nierves, BSIT student and Track & Field student-athlete at the University of Cebu Main.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&family=Chakra+Petch:wght@500;600;700&display=swap">
+
+<!-- Tailwind CSS (play CDN, pinned version) -->
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#151415', panel: '#1D1B1D', panel2: '#262326', rule: '#353035',
+          chalk: '#F4F1F1', dust: '#A8A1A4', crimson: '#E50914', ember: '#FF3B45'
+        },
+        fontFamily: {
+          display: ['"Big Shoulders Display"', '"Arial Narrow"', 'Impact', 'sans-serif'],
+          body: ['Barlow', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+          data: ['"Chakra Petch"', 'ui-monospace', 'Menlo', 'monospace']
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  /* Layout: sticky header → hero (story + photo) with a full-bleed crimson track band →
+     games arcade → about → map (stamps + memory match) → skills → hobbies, on a 1120px column.
+     Fixed UI: run tracker top-right, music dock bottom-left, reward toasts bottom-right. */
+  :root {
+    --ink: #151415;        /* charcoal ground */
+    --panel: #1D1B1D;      /* raised surface */
+    --panel-2: #262326;    /* inset surface */
+    --rule: #353035;       /* hairlines */
+    --chalk: #F4F1F1;      /* primary text, lane paint */
+    --dust: #A8A1A4;       /* secondary text */
+    --crimson: #E50914;    /* track surface / accent */
+    --ember: #FF3B45;      /* accent for small text on dark */
+    --gold: #F2C14E; --silver: #C9CED6; --bronze: #C88A55;   /* medals */
+    --sand: #7A6249;       /* long jump pit */
+    --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --font-body: Barlow, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-data: "Chakra Petch", ui-monospace, Menlo, monospace;
+    --header-h: 60px;
+    color-scheme: dark;
+  }
+
+  /* Elements with the hidden attribute stay hidden even when a component class sets display */
+  [hidden] { display: none !important; }
+
+  /* Built-in reset + the few utilities used in the markup, so the page still looks right
+     if the Tailwind CDN cannot load (for example, opened offline from a flash drive) */
+  *, *::before, *::after { box-sizing: border-box; }
+  h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+  ol, ul { list-style: none; padding: 0; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+  .flex { display: flex; } .flex-wrap { flex-wrap: wrap; } .items-center { align-items: center; }
+  .justify-between { justify-content: space-between; } .gap-3 { gap: .75rem; } .h-full { height: 100%; }
+  .min-w-0 { min-width: 0; } .mt-8 { margin-top: 2rem; }
+  .hidden { display: none; }
+  @media (min-width: 768px) { .md\:inline { display: inline; } }
+
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+  body {
+    background: var(--ink); color: var(--chalk);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  body.locked { overflow: hidden; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 45; background: var(--ink); }
+  ::selection { background: var(--crimson); color: #fff; }
+
+  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .wrap { max-width: 1120px; margin-inline: auto; }
+  h1, h2, h3 { text-wrap: balance; }
+  .display { font-family: var(--font-display); text-transform: uppercase; line-height: .9; letter-spacing: .005em; }
+  .label { font-family: var(--font-data); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 600; color: var(--dust); }
+  .num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  :focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; height: var(--header-h);
+    background: rgba(21, 20, 21, .86); border-bottom: 1px solid var(--rule);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--chalk); text-decoration: none; flex: none; }
+  .brand-mark { font-family: var(--font-display); font-weight: 900; font-size: 1.05rem; letter-spacing: .06em; background: var(--crimson); color: #fff; padding: 4px 12px 3px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
+  .brand-name { font-weight: 600; font-size: .95rem; }
+  .nav { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav ul { display: flex; flex-wrap: nowrap; }
+  .nav a { display: block; white-space: nowrap; font-family: var(--font-data); text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; font-weight: 600; color: var(--dust); padding: 8px 8px; border-radius: 6px; text-decoration: none; transition: color .2s, background .2s; }
+  .nav a:hover { color: var(--chalk); background: var(--panel-2); }
+  .nav a[aria-current="true"] { color: #fff; background: rgba(229, 9, 20, .22); }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary, .btn-ghost { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-data); cursor: pointer; text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; font-weight: 700; padding: 13px 20px; border-radius: 8px; text-decoration: none; transition: transform .2s, background .2s, border-color .2s; }
+  .btn-primary { background: var(--crimson); color: #fff; }
+  .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid var(--rule); color: var(--chalk); }
+  .btn-ghost:hover { border-color: var(--crimson); transform: translateY(-2px); }
+
+  /* ---------- Hero ---------- */
+  .hero-grid { display: grid; gap: 44px; align-items: center; padding-block: clamp(32px, 4vw, 48px) clamp(40px, 6vw, 72px); }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); } }
+  .hero-name { font-weight: 900; font-size: clamp(3.4rem, 10vw, 6.8rem); display: flex; flex-direction: column; margin-top: 14px; }
+  .hero-name span:last-child { color: var(--crimson); text-shadow: 0 0 40px rgba(229, 9, 20, .35); }
+  .hero-role { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; margin-top: 18px; min-height: 1.1em; }
+  .hero-role .role-word { color: var(--ember); }
+  .caret { display: inline-block; width: 3px; height: .9em; background: var(--ember); margin-left: 4px; vertical-align: -0.08em; animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+  .hero-lede { max-width: 34em; font-size: 1.1rem; color: var(--dust); margin-top: 16px; }
+  .hero-lede strong { color: var(--chalk); font-weight: 600; }
+  .hero-lede em { font-style: normal; color: var(--ember); font-weight: 600; }
+
+  /* Pick a lane: interactive intro */
+  .lane-pick { margin-top: 20px; max-width: 36em; }
+  .lp-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .lp-tab { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 7px; border-radius: 999px; border: 1px solid var(--rule); background: var(--panel); font-family: var(--font-data); font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dust); cursor: pointer; transition: border-color .2s, background .2s, color .2s, transform .2s; }
+  .lp-tab:hover { color: var(--chalk); border-color: rgba(229, 9, 20, .6); transform: translateY(-2px); }
+  .lp-tab span { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--panel-2); color: var(--chalk); font-size: .7rem; }
+  .lp-tab[aria-pressed="true"] { color: var(--chalk); border-color: var(--crimson); background: rgba(229, 9, 20, .18); }
+  .lp-tab[aria-pressed="true"] span { background: var(--crimson); color: #fff; }
+  .lp-tab::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--ember); }
+  .lp-tab.is-timing::after { animation: lpbar 4.5s linear forwards; }
+  @keyframes lpbar { to { width: 100%; } }
+  .lp-card { margin-top: 14px; display: flex; align-items: center; gap: 14px; padding: 12px 12px 12px 14px; max-width: 30em; border: 1px solid var(--rule); border-radius: 14px; background: var(--panel); }
+  .lp-card.swap { animation: lpin .35s ease-out; }
+  .lp-icon { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--crimson); color: #fff; }
+  .lp-icon svg { width: 22px; height: 22px; }
+  .lp-info { flex: 1; min-width: 0; display: grid; gap: 2px; }
+  .lp-info .label { font-size: .6rem; }
+  .lp-value { font-weight: 600; font-size: 1.12rem; line-height: 1.25; overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+  .lp-action { flex: none; font-family: var(--font-data); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 10px 14px; border-radius: 8px; background: var(--crimson); color: #fff; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s; }
+  .lp-action:hover { background: var(--ember); transform: translateY(-2px); }
+  .lp-action.done { background: var(--panel-2); color: var(--chalk); }
+  @keyframes lpin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 420px) { .lp-card { flex-wrap: wrap; } .lp-action { width: 100%; text-align: center; } }
+  .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--crimson); margin-right: 8px; vertical-align: 1px; animation: ping 2s infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(229,9,20,.6); } 80%, 100% { box-shadow: 0 0 0 10px rgba(229,9,20,0); } }
+
+  /* Photo card + race bib */
+  .hero-visual { position: relative; width: min(100%, 400px); margin-inline: auto; padding-bottom: 60px; }
+  .photo-card { position: relative; width: min(100%, 320px); max-width: 100%; aspect-ratio: 4 / 5; margin-left: auto; overflow: hidden; border-radius: 18px; border: 1px solid var(--rule); background: var(--panel); box-shadow: 0 0 0 1px rgba(229, 9, 20, .25), 0 40px 80px -30px rgba(229, 9, 20, .6); transition: transform .25s ease-out; }
+  .photo-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 47% center; display: block; }
+  .photo-clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; background: #000; z-index: 1; }
+  .media-toggle { position: absolute; top: 12px; left: 12px; z-index: 3; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(21, 20, 21, .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .media-btn { font-family: var(--font-data); font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; color: var(--dust); cursor: pointer; transition: background .2s, color .2s; }
+  .media-btn:hover { color: var(--chalk); }
+  .media-btn[aria-pressed="true"] { background: var(--crimson); color: #fff; }
+  .media-btn.hint { animation: hintPulse 1.4s ease-in-out 4; }
+  @keyframes hintPulse { 50% { box-shadow: 0 0 0 6px rgba(229, 9, 20, .4); color: var(--chalk); } }
+  .photo-credit { position: absolute; right: 10px; bottom: 10px; z-index: 3; font-size: .55rem; letter-spacing: .1em; background: rgba(21, 20, 21, .72); color: var(--chalk); padding: 3px 7px; border-radius: 4px; }
+  .ev-clip { margin-top: 16px; max-width: 420px; border-radius: 12px; overflow: hidden; border: 1px solid var(--rule); background: #000; }
+  .ev-clip video { display: block; width: 100%; aspect-ratio: 640 / 536; object-fit: cover; }
+  .ev-clip figcaption { padding: 8px 12px; background: var(--panel); }
+  .photo-fallback { display: none; position: absolute; inset: 0; place-content: center; text-align: center; background: repeating-linear-gradient(180deg, transparent 0 38px, rgba(244, 241, 241, .1) 38px 40px), radial-gradient(circle at 30% 20%, rgba(229, 9, 20, .65), transparent 62%), var(--panel); }
+  .photo-fallback b { font-family: var(--font-display); font-weight: 900; font-size: clamp(5rem, 18vw, 7.5rem); line-height: .9; color: rgba(244, 241, 241, .95); }
+  .photo-card.no-photo img { display: none; }
+  .photo-card.no-photo .photo-fallback { display: grid; }
+  .photo-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .22), transparent 55%); }
+  .photo-card:hover::after { opacity: 1; }
+  .photo-tag { position: absolute; top: 12px; right: 12px; z-index: 3; background: rgba(21, 20, 21, .75); color: var(--chalk); padding: 5px 9px; border-radius: 6px; }
+  .bib { position: absolute; left: 0; bottom: 0; width: 186px; z-index: 2; color: var(--ink); text-align: left; cursor: pointer; perspective: 900px; transform: rotate(-5deg); transition: transform .5s cubic-bezier(.2, .9, .3, 1.2); }
+  .bib:hover { transform: rotate(0deg) translateY(-6px) scale(1.04); }
+  .bib-inner { display: grid; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.3, .8, .3, 1.15); }
+  .bib.flipped .bib-inner { transform: rotateY(180deg); }
+  .bib-face { grid-area: 1 / 1; position: relative; display: block; background: var(--chalk); border-radius: 8px; padding: 16px 16px 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 24px 50px -20px rgba(0, 0, 0, .95); }
+  .bib-back { transform: rotateY(180deg); display: flex; flex-direction: column; gap: 8px; padding: 18px 16px 14px; background: var(--crimson); color: #fff; }
+  .bib-back .bib-pin { background: #7d050d; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .5); }
+  .bf-label { font-family: var(--font-data); font-size: .56rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  .bf-text { font-weight: 600; font-size: .95rem; line-height: 1.35; flex: 1; }
+  .bf-text.swap { animation: lpin .35s ease-out; }
+  .bf-next { font-family: var(--font-data); font-size: .52rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+  .bib-num, .bib-name { display: block; }
+  .bib-tag { position: absolute; top: -14px; right: -12px; z-index: 3; font-family: var(--font-data); font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: var(--crimson); padding: 4px 9px; border-radius: 999px; transform: rotate(8deg); box-shadow: 0 6px 16px -6px rgba(229, 9, 20, .9); animation: tagPulse 1.6s ease-in-out infinite; }
+  @keyframes tagPulse { 50% { transform: rotate(8deg) scale(1.12); } }
+  .bib-pin { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 1.5px #8b8588; }
+  .bib-pin:nth-child(1) { top: 7px; left: 7px; } .bib-pin:nth-child(2) { top: 7px; right: 7px; }
+  .bib-pin:nth-child(3) { bottom: 7px; left: 7px; } .bib-pin:nth-child(4) { bottom: 7px; right: 7px; }
+  .bib-top, .bib-foot { display: flex; justify-content: space-between; gap: 8px; font-family: var(--font-data); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .55rem; }
+  .bib-top { color: var(--crimson); border-bottom: 2px solid var(--ink); padding-bottom: 5px; }
+  .bib-num { font-family: var(--font-display); font-weight: 900; font-size: 3.7rem; line-height: .9; text-align: center; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .bib-name { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; text-align: center; letter-spacing: .18em; line-height: 1; margin-bottom: 8px; }
+  .bib-foot { border-top: 2px solid var(--ink); padding-top: 5px; color: #4a4446; }
+
+  /* Track band (signature element) */
+  .track { position: relative; height: 132px; overflow: hidden; background: linear-gradient(180deg, #c70812 0%, var(--crimson) 45%, #a1060e 100%); box-shadow: 0 0 80px -10px rgba(229, 9, 20, .55); }
+  .track::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, transparent 0 20px, rgba(244, 241, 241, .8) 20px 22px); }
+  .track::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .6s; background: repeating-linear-gradient(90deg, transparent 0 140px, rgba(255, 255, 255, .22) 140px 220px, transparent 220px 420px); }
+  .track.is-live::after { opacity: 1; animation: sweep 1.4s linear infinite; }
+  @keyframes sweep { from { transform: translateX(-420px); } to { transform: translateX(0); } }
+  .track-lanes { position: absolute; inset: 0; display: grid; grid-template-rows: repeat(6, 22px); z-index: 1; }
+  .track-lanes span { font-family: var(--font-data); font-weight: 700; font-size: .78rem; color: #fff; display: flex; align-items: center; padding-left: max(16px, env(safe-area-inset-left, 0px)); letter-spacing: .1em; }
+  .track-start { position: absolute; top: 0; bottom: 0; left: 18%; width: 4px; background: var(--chalk); z-index: 1; }
+  .track-mark { position: absolute; right: max(16px, env(safe-area-inset-right, 0px)); bottom: 8px; z-index: 1; font-family: var(--font-display); font-weight: 900; font-size: 2.6rem; color: rgba(255, 255, 255, .9); line-height: 1; }
+
+  /* ---------- Sections ---------- */
+  .band { padding-block: clamp(64px, 9vw, 108px); border-top: 1px solid var(--rule); }
+  .sec-head { display: grid; gap: 12px; margin-bottom: clamp(30px, 5vw, 48px); max-width: 760px; }
+  .sec-title { font-weight: 900; font-size: clamp(2.6rem, 6.5vw, 4.6rem); }
+  .sec-title em { font-style: normal; color: var(--crimson); }
+  .sec-intro { color: var(--dust); font-size: 1.08rem; max-width: 60ch; }
+
+  /* ---------- Games arcade ---------- */
+  .games-head { display: grid; gap: 20px; justify-items: start; margin-bottom: 28px; }
+  .games-head .sec-head { margin-bottom: 0; }
+  .medal-table { display: flex; gap: 10px; }
+  .mt { display: grid; justify-items: center; gap: 4px; min-width: 76px; padding: 12px 12px 10px; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); }
+  .mt i { width: 24px; height: 24px; border-radius: 50%; background: var(--mc); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .25); }
+  .mt b { font-family: var(--font-data); font-size: 1.4rem; line-height: 1; font-variant-numeric: tabular-nums; }
+  .mt span { font-family: var(--font-data); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dust); }
+  .mt.gold { --mc: var(--gold); } .mt.silver { --mc: var(--silver); } .mt.bronze { --mc: var(--bronze); }
+  .mt.pop { animation: pop .6s cubic-bezier(.2, 1.6, .4, 1); border-color: var(--mc); }
+  @keyframes pop { from { transform: scale(.75); } to { transform: none; } }
+
+  .ev-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+  @media (min-width: 760px) { .ev-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .ev-tab { position: relative; text-align: left; padding: 12px 34px 12px 14px; border-radius: 12px; border: 1px solid var(--rule); background: var(--panel); cursor: pointer; transition: border-color .2s, background .2s, transform .2s; min-width: 0; }
+  .ev-tab:hover { border-color: rgba(229, 9, 20, .6); transform: translateY(-2px); }
+  .ev-tab[aria-selected="true"] { border-color: var(--crimson); background: linear-gradient(180deg, rgba(229, 9, 20, .24), rgba(229, 9, 20, .06)); }
+  .ev-name { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase; line-height: 1; }
+  .ev-best { display: block; margin-top: 6px; font-size: .6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev-medal { position: absolute; top: 12px; right: 12px; width: 14px; height: 14px; border-radius: 50%; border: 1.5px dashed var(--rule); }
+  .ev-medal.gold, .ev-medal.silver, .ev-medal.bronze { border: 0; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .25); }
+  .ev-medal.gold { background: var(--gold); } .ev-medal.silver { background: var(--silver); } .ev-medal.bronze { background: var(--bronze); }
+
+  .ev-panel { display: grid; gap: 20px; }
+  @media (min-width: 900px) { .ev-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); align-items: start; } }
+  .ev-info h3 { font-family: var(--font-display); font-weight: 900; font-size: 2.2rem; text-transform: uppercase; line-height: 1; }
+  .ev-info p { color: var(--dust); margin-top: 10px; max-width: 46ch; }
+  .goals { display: grid; gap: 6px; margin-top: 16px; }
+  .goals li { display: flex; align-items: center; gap: 10px; font-size: .92rem; }
+  .goals i { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .goals .g-gold { background: var(--gold); } .goals .g-silver { background: var(--silver); } .goals .g-bronze { background: var(--bronze); }
+  .stats-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; margin-top: 18px; }
+  .stats-row > div { background: var(--panel); padding: 10px 12px; min-width: 0; }
+  .stats-row dd { font-family: var(--font-data); font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+  .stage { position: relative; display: flex; flex-direction: column; gap: 12px; min-height: 330px; padding: 16px; border-radius: 18px; border: 1px solid var(--rule); overflow: hidden; background: var(--panel); user-select: none; -webkit-user-select: none; }
+  .hud { display: flex; justify-content: space-between; gap: 12px; }
+  .hud b { display: block; font-family: var(--font-data); font-weight: 700; font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stage-note { text-align: center; color: var(--dust); min-height: 1.6em; }
+  .tap-btn { width: 100%; height: 60px; flex: none; border-radius: 12px; background: var(--crimson); color: #fff; font-family: var(--font-display); font-weight: 900; font-size: 1.7rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; touch-action: manipulation; transition: background .15s, transform .08s; }
+  .tap-btn:hover { background: var(--ember); }
+  .tap-btn:active { transform: scale(.98); }
+
+  /* Event 1: starting blocks pad */
+  .pad { position: relative; width: 100%; min-height: 330px; border-radius: 18px; overflow: hidden; cursor: pointer; border: 1px solid var(--rule); display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; padding: 28px 20px; touch-action: manipulation; user-select: none; -webkit-user-select: none; background: repeating-linear-gradient(180deg, transparent 0 48px, rgba(244, 241, 241, .07) 48px 50px), var(--panel); transition: background .12s, border-color .2s, transform .1s; }
+  .pad:hover { border-color: rgba(229, 9, 20, .6); }
+  .pad:active { transform: scale(.995); }
+  .pad-lights { display: flex; gap: 14px; }
+  .pad-lights i { width: 22px; height: 22px; border-radius: 50%; background: var(--panel-2); box-shadow: inset 0 0 0 2px var(--rule); transition: background .12s, box-shadow .12s; }
+  .pad[data-state="marks"] .pad-lights i:nth-child(1), .pad[data-state="set"] .pad-lights i:nth-child(-n+2) { background: var(--crimson); box-shadow: 0 0 18px var(--crimson); }
+  .pad[data-state="go"] { background: radial-gradient(circle, var(--ember), var(--crimson) 70%); border-color: var(--ember); }
+  .pad[data-state="go"] .pad-lights i { background: #fff; box-shadow: 0 0 18px #fff; }
+  .pad[data-state="go"] .pad-sub { color: #fff; }
+  .pad[data-state="false"] { border-color: var(--ember); animation: shake .4s; }
+  .pad[data-state="result"] .pad-word { color: var(--ember); font-variant-numeric: tabular-nums; }
+  @keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+  .pad-word { font-weight: 900; font-size: clamp(2.6rem, 7vw, 4.4rem); }
+  .pad-sub { color: var(--dust); font-size: 1rem; max-width: 34ch; }
+
+  /* Event 2: 60 m dash */
+  .dash-field { flex: 1; display: grid; align-content: center; gap: 6px; }
+  .dash-lanes { position: relative; }
+  .dash-lanes::after { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 8px; background: repeating-linear-gradient(180deg, #fff 0 4px, #151415 4px 8px); }
+  .dash-lane { position: relative; height: 62px; background: rgba(229, 9, 20, .14); border-top: 2px solid rgba(244, 241, 241, .5); }
+  .dash-lane:last-child { border-bottom: 2px solid rgba(244, 241, 241, .5); }
+  .dash-lane.you { background: rgba(229, 9, 20, .32); }
+  .dash-lane .label { position: absolute; left: 8px; top: 5px; font-size: .56rem; color: rgba(244, 241, 241, .75); }
+  .dash-marks { display: flex; justify-content: space-between; }
+  .dash-marks span { font-family: var(--font-data); font-size: .62rem; color: var(--dust); }
+
+  /* Event 3: long jump */
+  .jump-field { position: relative; height: 180px; margin-inline: -16px; flex: none; }
+  .jf-runway { position: absolute; left: 0; width: 58%; bottom: 28px; height: 26px; background: #3a2f33; border-top: 2px solid rgba(244, 241, 241, .35); }
+  .jf-board { position: absolute; left: 55%; width: 3%; bottom: 28px; height: 26px; background: var(--chalk); border-right: 4px solid var(--crimson); }
+  .jf-pit { position: absolute; left: 58%; right: 0; bottom: 20px; height: 34px; border-radius: 4px 0 0 4px; background: radial-gradient(circle at 20% 40%, rgba(255, 255, 255, .08) 0 1px, transparent 2px) 0 0 / 9px 9px, var(--sand); }
+  .jf-tick { position: absolute; bottom: 0; transform: translateX(-50%); font-family: var(--font-data); font-size: .58rem; color: var(--dust); }
+  .jf-mark { position: absolute; bottom: 20px; width: 3px; height: 34px; background: #fff; transform: translateX(-50%); box-shadow: 0 0 10px #fff; }
+  .jf-mark span { position: absolute; bottom: 42px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-data); font-weight: 700; font-size: .9rem; background: var(--crimson); color: #fff; padding: 2px 7px; border-radius: 4px; }
+  .jf-flag { position: absolute; left: 58%; bottom: 60px; transform: translateX(-50%); font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; color: #fff; background: var(--crimson); padding: 2px 10px; border-radius: 4px; animation: shake .4s; }
+
+  /* Shared runner sprite */
+  .runner { position: absolute; bottom: 2px; left: calc(var(--p, 0) * (100% - 32px)); width: 24px; height: 24px; color: var(--chalk); transition: left .45s cubic-bezier(.3, .7, .3, 1); }
+  .runner.no-anim, .stage .runner { transition: none; }
+  .dash-lane .runner { width: 34px; height: 34px; bottom: 8px; left: calc(var(--p, 0) * (100% - 46px)); }
+  .runner.ghost { color: var(--dust); opacity: .65; }
+  .jump-field .runner { width: 32px; height: 32px; bottom: 54px; left: 2%; }
+  .runner svg { width: 100%; height: 100%; overflow: visible; }
+  .runner .limb { transform-box: view-box; }
+  .runner .leg-a, .runner .leg-b { transform-origin: 11.5px 13.5px; }
+  .runner .arm-a, .runner .arm-b { transform-origin: 13.6px 8.4px; }
+  .runner .leg-a, .runner .arm-b { animation: swingA .34s ease-in-out infinite; animation-play-state: paused; }
+  .runner .leg-b, .runner .arm-a { animation: swingB .34s ease-in-out infinite; animation-play-state: paused; }
+  .runner .body { animation: bob .17s ease-in-out infinite alternate; animation-play-state: paused; }
+  .runner.is-running .limb, .runner.is-running .body { animation-play-state: running; }
+  .runner.is-running:not(.ghost) { color: #fff; filter: drop-shadow(0 0 6px rgba(255, 59, 69, .9)); }
+  @keyframes swingA { 0%, 100% { transform: rotate(26deg); } 50% { transform: rotate(-26deg); } }
+  @keyframes swingB { 0%, 100% { transform: rotate(-26deg); } 50% { transform: rotate(26deg); } }
+  @keyframes bob { from { transform: translateY(0); } to { transform: translateY(-1.2px); } }
+
+  /* Event 4: hurdles (canvas) */
+  .hurdle-stage { padding: 0; min-height: 0; cursor: pointer; touch-action: manipulation; outline-offset: 4px; }
+  .hurdle-stage canvas { display: block; width: 100%; height: 280px; }
+  .hurdle-hud { position: absolute; top: 14px; left: 16px; right: 16px; display: flex; justify-content: space-between; pointer-events: none; }
+  .hurdle-msg { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 6px; text-align: center; padding: 20px; background: rgba(21, 20, 21, .55); pointer-events: none; }
+  .hurdle-msg b { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(2rem, 6vw, 3rem); line-height: .95; }
+  .hurdle-msg span { color: var(--chalk); max-width: 34ch; }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; gap: 40px; }
+  @media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; } }
+  .about-copy p { max-width: 62ch; font-size: 1.08rem; color: #d9d4d6; }
+  .about-copy p + p { margin-top: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip { font-family: var(--font-data); font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--rule); color: var(--chalk); background: var(--panel); transition: border-color .2s, background .2s, transform .2s; }
+  .chip:hover { border-color: var(--crimson); background: rgba(229, 9, 20, .15); transform: translateY(-2px); }
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .facts > div { background: var(--panel); padding: 16px 18px; min-width: 0; }
+  .facts dd { font-weight: 600; font-size: 1.05rem; margin-top: 4px; }
+  .legs { display: grid; gap: 16px; margin-top: 56px; }
+  @media (min-width: 760px) { .legs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; } }
+  .leg { position: relative; padding: 22px 20px 4px 0; border-top: 2px solid var(--rule); }
+  .leg::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--ink); border: 2px solid var(--crimson); }
+  .leg.is-now { border-top-color: var(--crimson); }
+  .leg.is-now::before { background: var(--crimson); box-shadow: 0 0 0 6px rgba(229, 9, 20, .2); }
+  .leg h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.55rem; text-transform: uppercase; line-height: 1; margin-top: 8px; }
+  .leg p { color: var(--dust); font-size: .95rem; margin-top: 8px; max-width: 32ch; }
+  .now-chip { display: inline-block; margin-left: 6px; color: #fff; background: var(--crimson); padding: 1px 6px; border-radius: 3px; letter-spacing: .1em; }
+
+  /* ---------- Athlete's Map: passport cards ---------- */
+  .hl-text { color: var(--chalk); font-weight: 600; }
+  .map-how { display: flex; align-items: center; gap: 10px; font-family: var(--font-data); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--chalk); }
+  .map-how-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--crimson); flex: none; animation: ping 2s infinite; }
+  .map-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .map-stats span { font-family: var(--font-data); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--rule); padding: 6px 10px; border-radius: 6px; color: var(--dust); }
+  .map-stats b { color: var(--chalk); }
+  .map-stats .is-hot { border-color: var(--crimson); color: var(--chalk); }
+  .passports { display: flex; flex-wrap: wrap; gap: 20px; }
+  .passport { flex: 1 1 300px; min-width: 0; position: relative; overflow: hidden; cursor: pointer; outline-offset: 4px; background: radial-gradient(circle at 100% 0%, rgba(229, 9, 20, .14), transparent 45%), repeating-radial-gradient(circle at 0% 100%, rgba(244, 241, 241, .035) 0 1px, transparent 1px 7px), var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 16px 20px 14px; transition: transform .35s cubic-bezier(.2, .9, .3, 1.2), border-color .3s, box-shadow .3s; }
+  .passport:hover, .passport:focus-visible { transform: translateY(-6px); border-color: rgba(229, 9, 20, .7); box-shadow: 0 24px 50px -24px rgba(229, 9, 20, .55); }
+  .passport.is-stamped { border-color: rgba(229, 9, 20, .45); }
+  .passport.slam { animation: nudge .35s ease-out; }
+  @keyframes nudge { 30% { transform: translateY(3px) scale(.99); } 100% { transform: none; } }
+  .pp-top { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--rule); }
+  .pp-body { display: flex; justify-content: space-between; gap: 12px; padding-block: 14px 12px; }
+  .pp-code { font-family: var(--font-data); font-weight: 700; font-size: 2.4rem; line-height: 1; color: var(--ember); letter-spacing: .06em; }
+  .pp-city { font-family: var(--font-display); font-weight: 900; font-size: 2.1rem; text-transform: uppercase; line-height: 1; margin-top: 6px; }
+  .pp-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; margin-top: 14px; }
+  .pp-fields dt { font-family: var(--font-data); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dust); }
+  .pp-fields dd { font-weight: 600; font-size: .95rem; line-height: 1.3; }
+  .stamp { flex: none; width: 92px; height: 92px; border-radius: 50%; display: grid; place-content: center; text-align: center; border: 2px solid var(--ember); box-shadow: inset 0 0 0 4px var(--panel), inset 0 0 0 5px var(--ember); color: var(--ember); transform: rotate(-14deg); transition: transform .3s, border-color .3s, color .3s; }
+  .stamp span { font-family: var(--font-data); font-size: .5rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .stamp strong { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; line-height: 1; }
+  .stamp .stamp-hint { display: none; font-size: .58rem; line-height: 1.4; }
+  .passport:not(.is-stamped) .stamp { border: 2px dashed var(--rule); box-shadow: none; color: var(--dust); transform: none; }
+  .passport:not(.is-stamped) .stamp > :not(.stamp-hint) { display: none; }
+  .passport:not(.is-stamped) .stamp .stamp-hint { display: block; }
+  .passport:not(.is-stamped):hover .stamp { border-color: var(--ember); color: var(--chalk); transform: scale(1.06); }
+  .passport.slam .stamp { animation: slam .5s cubic-bezier(.2, 1.5, .4, 1); }
+  @keyframes slam { 0% { transform: rotate(-14deg) scale(2.3); opacity: 0; } 55% { transform: rotate(-14deg) scale(.9); opacity: 1; } 100% { transform: rotate(-14deg) scale(1); } }
+  .mrz { font-family: var(--font-data); font-size: .7rem; letter-spacing: .2em; color: #6f696c; white-space: nowrap; overflow: hidden; border-top: 1px dashed var(--rule); padding-top: 10px; }
+
+  /* Memory match: gate check */
+  .match { margin-top: 44px; padding: clamp(18px, 3vw, 26px); border: 1px solid var(--rule); border-radius: 18px; background: var(--panel); }
+  .match-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px; margin-bottom: 18px; }
+  .match-top h3 { font-family: var(--font-display); font-weight: 900; font-size: 2.2rem; text-transform: uppercase; line-height: 1; }
+  .match-top p { color: var(--dust); margin-top: 6px; }
+  .match-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .match-meta b { color: var(--chalk); }
+  .match-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  @media (min-width: 640px) { .match-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .match-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  .mcard { position: relative; height: 96px; perspective: 700px; cursor: pointer; min-width: 0; }
+  .mcard-inner { position: absolute; inset: 0; transition: transform .5s cubic-bezier(.3, .8, .3, 1.1); transform-style: preserve-3d; }
+  .mcard.flipped .mcard-inner, .mcard.matched .mcard-inner { transform: rotateY(180deg); }
+  .mface { position: absolute; inset: 0; border-radius: 12px; display: grid; place-items: center; text-align: center; padding: 6px; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid var(--rule); }
+  .mface.back { background: repeating-linear-gradient(135deg, #2a0609 0 8px, #210508 8px 16px); color: var(--ember); font-family: var(--font-display); font-weight: 900; font-size: 2rem; transition: border-color .2s; }
+  .mcard:hover .mface.back { border-color: var(--crimson); }
+  .mface.front { transform: rotateY(180deg); background: var(--panel-2); }
+  .mface.code { font-family: var(--font-data); font-weight: 700; font-size: 1.6rem; color: var(--ember); letter-spacing: .06em; }
+  .mface.city { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase; line-height: 1; overflow-wrap: anywhere; }
+  .mcard.matched .mface.front { border-color: var(--crimson); background: rgba(229, 9, 20, .18); box-shadow: 0 0 22px -6px var(--crimson); }
+  .match-note { margin-top: 14px; color: var(--dust); min-height: 1.6em; }
+
+  /* ---------- Skills: status meters ---------- */
+  .skills-grid { display: grid; gap: 36px; }
+  @media (min-width: 860px) { .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .skill-group h3 { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 14px; }
+  .skill-group h3::before { content: ""; width: 18px; height: 4px; background: var(--crimson); }
+  .meters { display: grid; gap: 14px; }
+  .meter { display: block; width: 100%; text-align: left; cursor: pointer; background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px 14px; transition: border-color .25s, transform .25s, background .25s; }
+  .meter:hover { border-color: rgba(229, 9, 20, .6); background: #211f21; transform: translateX(4px); }
+  .meter-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .meter-name { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; text-transform: uppercase; line-height: 1; }
+  .meter-badge { display: inline-block; vertical-align: 4px; margin-left: 8px; font-family: var(--font-data); font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; border: 1px solid var(--rule); color: var(--dust); }
+  .meter-badge.strong { border-color: var(--crimson); color: var(--chalk); }
+  .meter-val { font-family: var(--font-data); color: var(--dust); font-size: .85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .meter-val b { color: var(--chalk); font-size: 1.5rem; font-weight: 700; }
+  .meter-lane { position: relative; display: block; height: 14px; margin-top: 12px; background: var(--panel-2); border-radius: 3px; overflow: hidden; }
+  .meter-lane::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(244, 241, 241, .16) calc(10% - 1px) 10%); pointer-events: none; }
+  .meter-fill { position: absolute; inset: 0 auto 0 0; width: var(--v); transform-origin: left center; background: linear-gradient(90deg, #7d050d, var(--crimson) 70%, var(--ember)); box-shadow: 0 0 18px rgba(229, 9, 20, .55); }
+  .meter-fill::after { content: ""; position: absolute; right: 0; top: -2px; bottom: -2px; width: 3px; background: #fff; box-shadow: 0 0 10px #fff; }
+  .meter.armed .meter-fill { transform: scaleX(0); }
+  .meter.play .meter-fill { animation: fillUp 1.3s cubic-bezier(.2, .8, .2, 1) both; }
+  @keyframes fillUp { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .meter-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
+  .meter-note { color: var(--dust); font-size: .95rem; line-height: 1.45; }
+  .meter-hint { font-family: var(--font-data); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: #6f696c; white-space: nowrap; align-self: end; transition: color .2s; }
+  .meter:hover .meter-hint { color: var(--ember); }
+
+  /* ---------- Hobbies: glass cards ---------- */
+  .hobbies { position: relative; overflow: hidden; }
+  .hobbies::before, .hobbies::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+  .hobbies::before { width: 420px; height: 420px; left: -80px; top: 38%; background: rgba(229, 9, 20, .38); }
+  .hobbies::after { width: 360px; height: 360px; right: -60px; bottom: -60px; background: rgba(255, 59, 69, .22); }
+  .hobby-grid { position: relative; z-index: 1; display: grid; gap: 22px; }
+  @media (min-width: 768px) { .hobby-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .glass { position: relative; min-width: 0; padding: 26px 24px 24px; border-radius: 18px; background: linear-gradient(160deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)); border: 1px solid rgba(255, 255, 255, .14); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); box-shadow: 0 1px 0 rgba(255, 255, 255, .12) inset, 0 20px 40px -24px rgba(0, 0, 0, .8); transition: transform .45s cubic-bezier(.2, .9, .3, 1.25), border-color .3s, box-shadow .3s; }
+  .glass:hover, .glass:focus-visible { transform: scale(1.06) translateY(-4px); z-index: 2; border-color: rgba(255, 59, 69, .55); box-shadow: 0 1px 0 rgba(255, 255, 255, .16) inset, 0 30px 60px -24px rgba(229, 9, 20, .55); }
+  .glass-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: #fff; background: rgba(229, 9, 20, .85); box-shadow: 0 8px 24px -8px rgba(229, 9, 20, .9); transition: transform .45s cubic-bezier(.2, 1.6, .4, 1); }
+  .glass:hover .glass-icon { transform: rotate(-8deg) scale(1.1); }
+  .glass-icon svg { width: 26px; height: 26px; }
+  .glass h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.75rem; text-transform: uppercase; line-height: 1; margin-top: 22px; }
+  .glass p { color: #d2cccf; margin-top: 10px; }
+
+  .finish-line { height: 12px; background: repeating-linear-gradient(90deg, var(--chalk) 0 12px, var(--ink) 12px 24px); opacity: .8; }
+  .site-footer { padding-block: 40px calc(100px + env(safe-area-inset-bottom, 0px)); color: var(--dust); font-size: .9rem; }
+
+  /* ---------- Welcome overlay ---------- */
+  .overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden auto; background: radial-gradient(120% 70% at 50% 115%, rgba(229, 9, 20, .32), transparent 60%), var(--ink); padding-top: calc(24px + env(safe-area-inset-top, 0px)); padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); transition: opacity .7s ease, transform .8s cubic-bezier(.7, 0, .2, 1), filter .7s ease; }
+  .overlay.is-leaving { opacity: 0; transform: translateY(-3%) scale(1.04); filter: blur(8px); pointer-events: none; }
+  .ov-track { position: absolute; left: -30%; right: -30%; bottom: -6%; height: 62%; pointer-events: none; background: repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 3px), rgba(244, 241, 241, .55) calc(12.5% - 3px) 12.5%), linear-gradient(180deg, rgba(229, 9, 20, .15), rgba(229, 9, 20, .7)); transform: perspective(520px) rotateX(60deg); transform-origin: bottom center; -webkit-mask-image: linear-gradient(to top, #000 25%, transparent 95%); mask-image: linear-gradient(to top, #000 25%, transparent 95%); }
+  .ov-inner { position: relative; z-index: 1; max-width: 860px; text-align: center; display: grid; justify-items: center; gap: 28px; }
+  .ov-title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: .92; font-size: clamp(3rem, 9vw, 6.4rem); }
+  .ov-title .hl { color: var(--crimson); text-shadow: 0 0 36px rgba(229, 9, 20, .5); }
+  .btn-start { position: relative; isolation: isolate; cursor: pointer; display: inline-flex; align-items: center; gap: 14px; font-family: var(--font-display); font-weight: 900; font-size: clamp(1.7rem, 4.2vw, 2.4rem); letter-spacing: .08em; color: #fff; padding: .55em 1.5em .5em; transition: transform .2s; animation: glow 2.2s ease-in-out infinite; }
+  .btn-start::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--crimson); clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%); transition: background .2s; }
+  .btn-start:hover { transform: translateY(-3px) scale(1.03); }
+  .btn-start:focus-visible { outline: none; }
+  .btn-start:focus-visible::before { background: var(--ember); }
+  .btn-start:hover::before { background: var(--ember); }
+  .btn-start svg { width: .8em; height: .8em; }
+  @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 14px rgba(229, 9, 20, .45)); } 50% { filter: drop-shadow(0 0 34px rgba(229, 9, 20, .9)); } }
+
+  /* ---------- Run tracker ---------- */
+  .run-panel { position: fixed; z-index: 50; width: 236px; top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 12px); right: calc(env(safe-area-inset-right, 0px) + 16px); background: rgba(29, 27, 29, .9); border: 1px solid var(--rule); border-radius: 14px; padding: 11px 13px 10px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .9); opacity: 0; transform: translateY(-10px) scale(.96); transition: opacity .45s ease .25s, transform .45s cubic-bezier(.2, .9, .3, 1.2) .25s; }
+  .run-panel.is-in { opacity: 1; transform: none; }
+  .run-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .run-dist { font-family: var(--font-data); font-weight: 700; font-size: 1.35rem; font-variant-numeric: tabular-nums; line-height: 1; }
+  .lane { position: relative; height: 30px; margin-top: 8px; overflow: hidden; background: linear-gradient(90deg, rgba(229, 9, 20, .28), rgba(229, 9, 20, .1)); border-block: 1px solid rgba(244, 241, 241, .35); }
+  .lane::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 6px; background: repeating-linear-gradient(180deg, #fff 0 3px, #151415 3px 6px); opacity: .85; }
+  .run-foot { display: flex; justify-content: space-between; gap: 8px; margin-top: 6px; }
+  .run-foot .label { font-size: .58rem; }
+  .check-toggle { width: 100%; display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 0 0; border-top: 1px solid var(--rule); cursor: pointer; text-align: left; }
+  .check-toggle .label { color: var(--chalk); font-size: .62rem; flex: none; }
+  .check-dots { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 3px; flex: 1; }
+  .check-dots i { height: 6px; border-radius: 2px; background: var(--rule); transition: background .3s; }
+  .check-dots i.on { background: var(--crimson); box-shadow: 0 0 8px rgba(229, 9, 20, .8); }
+  .check-toggle svg { width: 14px; height: 14px; flex: none; color: var(--dust); transition: transform .25s; }
+  .check-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .check-list { display: grid; gap: 6px; margin-top: 8px; }
+  .check-list li { display: flex; gap: 8px; align-items: flex-start; font-size: .82rem; line-height: 1.3; color: var(--dust); }
+  .check-list li::before { content: ""; flex: none; width: 14px; height: 14px; margin-top: 1px; border-radius: 4px; border: 1.5px solid var(--rule); }
+  .check-list li.done { color: var(--chalk); }
+  .check-list li.done::before { background: var(--crimson) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / 10px no-repeat; border-color: var(--crimson); }
+  .check-list a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  .check-list a:hover { text-decoration-color: var(--ember); }
+
+  /* ---------- Music dock ---------- */
+  .dock { position: fixed; z-index: 50; left: calc(env(safe-area-inset-left, 0px) + 16px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 6px; background: rgba(29, 27, 29, .88); border: 1px solid var(--rule); border-radius: 999px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 16px 36px -16px rgba(0, 0, 0, .9); opacity: 0; transform: translateY(12px); transition: opacity .45s ease .2s, transform .45s cubic-bezier(.2, .9, .3, 1.2) .2s; }
+  .dock.is-in { opacity: 1; transform: none; }
+  .dock-btn { position: relative; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--crimson); color: #fff; cursor: pointer; transition: transform .2s, background .2s; }
+  .dock-btn:hover { transform: scale(1.06); background: var(--ember); }
+  .eq { display: flex; align-items: flex-end; gap: 2px; height: 18px; }
+  .eq i { width: 3px; height: 18px; background: #fff; border-radius: 2px; transform-origin: bottom; transform: scaleY(.2); }
+  .dock-btn .icon-play { display: none; width: 16px; height: 16px; margin-left: 2px; }
+  .dock.is-paused .eq { display: none; }
+  .dock.is-paused .icon-play { display: block; }
+  .dock-meta { display: grid; line-height: 1.15; min-width: 0; padding-right: 4px; }
+  .dock-meta .label { font-size: .58rem; }
+  .dock-track { font-weight: 600; font-size: .86rem; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dock-load { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: var(--dust); border: 1px solid var(--rule); cursor: pointer; transition: color .2s, border-color .2s; }
+  .dock-load:hover, .dock-load:focus-within { color: var(--chalk); border-color: var(--crimson); }
+  .dock-load svg { width: 14px; height: 14px; }
+
+  /* ---------- Reward toasts ---------- */
+  .toasts { position: fixed; z-index: 115; right: calc(env(safe-area-inset-right, 0px) + 16px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); display: grid; gap: 10px; justify-items: end; width: min(320px, calc(100vw - 112px)); pointer-events: none; }
+  .ach { display: flex; gap: 12px; align-items: center; width: 100%; padding: 12px 14px; border-radius: 12px; background: rgba(29, 27, 29, .96); border: 1px solid rgba(229, 9, 20, .55); box-shadow: 0 16px 40px -16px rgba(229, 9, 20, .6); opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .35s, transform .45s cubic-bezier(.2, 1.4, .4, 1); }
+  .ach.in { opacity: 1; transform: none; }
+  .ach-icon { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--crimson); color: #fff; }
+  .ach.gold .ach-icon { background: var(--gold); color: var(--ink); } .ach.silver .ach-icon { background: var(--silver); color: var(--ink); } .ach.bronze .ach-icon { background: var(--bronze); color: var(--ink); }
+  .ach.gold { border-color: var(--gold); } .ach.silver { border-color: var(--silver); } .ach.bronze { border-color: var(--bronze); }
+  .ach-icon svg { width: 18px; height: 18px; }
+  .ach b { display: block; font-family: var(--font-data); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+  .ach.gold b { color: var(--gold); } .ach.silver b { color: var(--silver); } .ach.bronze b { color: var(--bronze); }
+  .ach span span { display: block; font-size: .9rem; line-height: 1.35; }
+
+  /* ---------- Finish card + confetti ---------- */
+  #confetti { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 130; pointer-events: none; }
+  .reminder {
+    position: fixed; z-index: 120; left: 50%; top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 14px);
+    width: min(400px, calc(100vw - 32px)); display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px;
+    background: rgba(29, 27, 29, .97); border: 1px solid var(--rule); border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(229, 9, 20, .3), 0 24px 60px -20px rgba(0, 0, 0, .95);
+    opacity: 0; transform: translate(-50%, -24px); transition: opacity .35s, transform .5s cubic-bezier(.2, 1.4, .4, 1);
+  }
+  .reminder.in { opacity: 1; transform: translate(-50%, 0); }
+  .rem-icon { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--crimson); color: #fff; box-shadow: 0 8px 20px -8px rgba(229, 9, 20, .9); }
+  .rem-icon svg { width: 24px; height: 24px; }
+  .reminder.in .rem-icon { animation: ring .6s ease-in-out .3s 2; }
+  @keyframes ring { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+  .rem-body { flex: 1; min-width: 0; }
+  .rem-app { font-size: .58rem; }
+  .rem-title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 1.5rem; line-height: 1; margin-top: 4px; }
+  .rem-text { color: var(--dust); margin-top: 4px; line-height: 1.35; }
+  .rem-x { flex: none; align-self: flex-start; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: var(--dust); cursor: pointer; }
+  .rem-x:hover { background: var(--panel-2); color: var(--chalk); }
+  .rem-x svg { width: 14px; height: 14px; }
+
+  @media (max-width: 600px) {
+    .run-panel { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); width: 176px; padding: 8px 10px 7px; }
+    .run-head, .run-foot { display: none; }
+    .lane { margin-top: 0; height: 24px; }
+    .lane .runner { width: 20px; height: 20px; }
+    .check-toggle { margin-top: 6px; padding-top: 6px; }
+    .toasts { bottom: calc(env(safe-area-inset-bottom, 0px) + 150px); width: min(320px, calc(100vw - 32px)); }
+    .dock-meta { display: none; }
+    .medal-table { width: 100%; }
+    .mt { flex: 1; min-width: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    .runner.is-running .limb, .runner.is-running .body { animation: none; }
+  }
+</style>
+
+<!-- Runner sprite, reused by the run tracker and the games -->
+<template id="runnerTpl">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <g class="body">
+      <g class="limb arm-b"><polyline points="13.6,8.4 10.6,10.6 9,8.4" opacity=".55"/></g>
+      <g class="limb leg-b"><polyline points="11.5,13.5 9,17.5 5.6,18.6" opacity=".55"/></g>
+      <circle cx="15.2" cy="4.2" r="2.3" fill="currentColor" stroke="none"/>
+      <line x1="14" y1="7.2" x2="11.5" y2="13.5"/>
+      <g class="limb leg-a"><polyline points="11.5,13.5 14.4,17 12.8,21.6"/></g>
+      <g class="limb arm-a"><polyline points="13.6,8.4 16.6,10.8 19,9.4"/></g>
+    </g>
+  </svg>
+</template>
+
+<!-- =========================================================
+     WELCOME OVERLAY (Start Run = start the music)
+     ========================================================= -->
+<div id="startOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="startTitle">
+  <div class="ov-track" aria-hidden="true"></div>
+  <div class="ov-inner">
+    <p class="label"><span class="live-dot"></span>On your marks · Lane 4</p>
+    <h2 id="startTitle" class="ov-title">Welcome!<br><span class="hl">Are you ready</span><br>to sprint?</h2>
+    <button id="startRun" type="button" class="btn-start">
+      START RUN
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- =========================================================
+     PORTFOLIO
+     ========================================================= -->
+<div id="app" inert>
+
+  <header class="site-header gutter">
+    <div class="wrap h-full flex items-center justify-between gap-3">
+      <a href="#top" class="brand" aria-label="Shanily B. Nierves, back to top">
+        <span class="brand-mark">SBN</span>
+        <span class="brand-name hidden md:inline">Shanily B. Nierves</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <ul>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#map">Map</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#hobbies">Hobbies</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="top" aria-labelledby="heroName">
+      <div class="gutter">
+        <div class="wrap hero-grid">
+          <div class="min-w-0">
+            <p class="label"><span class="live-dot"></span>BSIT · 3rd year · University of Cebu Main</p>
+            <h1 id="heroName" class="hero-name display"><span>Shanily B.</span><span>Nierves</span></h1>
+            <p class="hero-role">I'm <span id="roleWord" class="role-word">a sprinter.</span><span class="caret" aria-hidden="true"></span></p>
+            <div class="lane-pick">
+              <p class="label">Pick a lane to reach me</p>
+              <div class="lp-tabs">
+                <button type="button" class="lp-tab" aria-pressed="true" data-interact><span>1</span>Gmail</button>
+                <button type="button" class="lp-tab" aria-pressed="false" data-interact><span>2</span>Facebook</button>
+                <button type="button" class="lp-tab" aria-pressed="false" data-interact><span>3</span>Phone</button>
+              </div>
+              <div class="lp-card">
+                <span id="lpIcon" class="lp-icon" aria-hidden="true"></span>
+                <span class="lp-info">
+                  <span id="lpKind" class="label">Email me</span>
+                  <span id="lpValue" class="lp-value">shanilynierves@gmail.com</span>
+                </span>
+                <button id="lpCopy" type="button" class="lp-action">Copy</button>
+                <a id="lpLink" class="lp-action" href="https://www.facebook.com/Shanily.Nierves" target="_blank" rel="noopener" hidden>Open</a>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3 mt-8">
+              <a class="btn-primary" href="#games">Play the track games</a>
+              <a class="btn-ghost" href="#about">About me</a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <!-- Put Shanily's photo next to this page as shanily.jpg -->
+            <figure id="photoCard" class="photo-card" data-interact>
+              <img id="photo" src="shanily.jpg" alt="Shanily sprinting on the track in her yellow and blue team uniform" width="1080" height="606">
+              <div class="photo-fallback" aria-hidden="true"><b>SBN</b></div>
+              <video id="heroClip" class="photo-clip" poster="jumping-poster.jpg" muted loop playsinline preload="none" aria-label="Video of Shanily's long jump" hidden><source src="jumping.mp4" type="video/mp4"><source src="jumping.webm" type="video/webm"></video>
+              <div class="media-toggle" role="group" aria-label="Show photo or video">
+                <button type="button" class="media-btn" aria-pressed="true" data-media="photo">Photo</button>
+                <button type="button" class="media-btn" aria-pressed="false" data-media="clip">&#9654; My jump</button>
+              </div>
+              <span class="photo-tag label">Lane 4</span>
+              <span id="photoCredit" class="photo-credit label">Photo: Lakandiwa</span>
+            </figure>
+            <button type="button" id="bib" class="bib" data-interact aria-label="Race bib, number 0409. Tap to flip it for fun facts about me.">
+              <span id="bibTag" class="bib-tag" aria-hidden="true">Flip me</span>
+              <span class="bib-inner">
+                <span class="bib-face bib-front" aria-hidden="true">
+                  <span class="bib-pin"></span><span class="bib-pin"></span><span class="bib-pin"></span><span class="bib-pin"></span>
+                  <span class="bib-top"><span>UC Main</span><span>Track &amp; Field</span></span>
+                  <span class="bib-num">0409</span>
+                  <span class="bib-name">NIERVES</span>
+                  <span class="bib-foot"><span>Sprints · Jumps</span><span>Age <span data-age>21</span></span></span>
+                </span>
+                <span class="bib-face bib-back">
+                  <span class="bib-pin"></span><span class="bib-pin"></span><span class="bib-pin"></span><span class="bib-pin"></span>
+                  <span id="bfLabel" class="bf-label">Fun fact 1 of 3</span>
+                  <span id="bfText" class="bf-text" aria-live="polite">I have a serious sweet tooth. Dessert counts as recovery, right?</span>
+                  <span id="bfNext" class="bf-next">Tap for the next one</span>
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="trackBand" class="track" aria-hidden="true">
+        <div class="track-lanes"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+        <div class="track-start"></div>
+        <div class="track-mark">100M</div>
+      </div>
+    </section>
+
+    <!-- GAMES ARCADE -->
+    <section id="games" class="band" aria-labelledby="gamesTitle">
+      <div class="gutter"><div class="wrap">
+        <div class="games-head">
+          <div class="sec-head">
+            <p class="label">Play</p>
+            <h2 id="gamesTitle" class="sec-title display">Track &amp; Field <em>Games</em></h2>
+            <p class="sec-intro">Four quick events from my world. Start with the hurdles: just tap or press Space to jump. Win medals and fill your table.</p>
+          </div>
+          <div class="medal-table" aria-label="Your medals">
+            <div class="mt gold" id="mtGold"><i></i><b id="mGold">0</b><span>Gold</span></div>
+            <div class="mt silver" id="mtSilver"><i></i><b id="mSilver">0</b><span>Silver</span></div>
+            <div class="mt bronze" id="mtBronze"><i></i><b id="mBronze">0</b><span>Bronze</span></div>
+          </div>
+        </div>
+
+        <div class="ev-tabs" role="tablist" aria-label="Events">
+          <button type="button" class="ev-tab" role="tab" id="tab-hurdles" aria-controls="ev-hurdles" aria-selected="true" data-ev="hurdles">
+            <span class="ev-name">Hurdles</span><span class="ev-best label" id="best-hurdles">Jump to survive</span><i class="ev-medal" id="medal-hurdles" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="ev-tab" role="tab" id="tab-dash" aria-controls="ev-dash" aria-selected="false" tabindex="-1" data-ev="dash">
+            <span class="ev-name">60 m Dash</span><span class="ev-best label" id="best-dash">Tap race</span><i class="ev-medal" id="medal-dash" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="ev-tab" role="tab" id="tab-jump" aria-controls="ev-jump" aria-selected="false" tabindex="-1" data-ev="jump">
+            <span class="ev-name">Long Jump</span><span class="ev-best label" id="best-jump">Timing test</span><i class="ev-medal" id="medal-jump" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="ev-tab" role="tab" id="tab-blocks" aria-controls="ev-blocks" aria-selected="false" tabindex="-1" data-ev="blocks">
+            <span class="ev-name">Starting Blocks</span><span class="ev-best label" id="best-blocks">Reaction test</span><i class="ev-medal" id="medal-blocks" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- Event 1: Starting Blocks -->
+        <div class="ev-panel" role="tabpanel" id="ev-blocks" aria-labelledby="tab-blocks" hidden>
+          <div class="ev-info">
+            <h3>Starting Blocks</h3>
+            <p>A sprint is often decided at the start. Tap to get into your blocks, then tap again the instant you see GO. In World Athletics rules, reacting faster than 0.100 s counts as a false start.</p>
+            <ul class="goals">
+              <li><i class="g-gold"></i>Gold: under 0.200 s</li>
+              <li><i class="g-silver"></i>Silver: under 0.260 s</li>
+              <li><i class="g-bronze"></i>Bronze: under 0.350 s</li>
+            </ul>
+            <dl class="stats-row">
+              <div><dt class="label">Last</dt><dd id="rtLast">–</dd></div>
+              <div><dt class="label">Best</dt><dd id="rtBest">–</dd></div>
+              <div><dt class="label">Starts</dt><dd id="rtTries">0</dd></div>
+            </dl>
+          </div>
+          <button id="blocksPad" type="button" class="pad" data-state="idle" aria-live="polite">
+            <span class="pad-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span id="padWord" class="pad-word display">Tap to start</span>
+            <span id="padSub" class="pad-sub">Or focus here and press Space</span>
+          </button>
+        </div>
+
+        <!-- Event 2: 60 m Dash -->
+        <div class="ev-panel" role="tabpanel" id="ev-dash" aria-labelledby="tab-dash" hidden>
+          <div class="ev-info">
+            <h3>60 m Dash</h3>
+            <p>The indoor sprint. Tap the button as fast as you can to run 60 m. Each tap is a stride. Can you beat the pacer, who runs it in 8.00 s?</p>
+            <ul class="goals">
+              <li><i class="g-gold"></i>Gold: under 6.50 s</li>
+              <li><i class="g-silver"></i>Silver: beat the pacer (8.00 s)</li>
+              <li><i class="g-bronze"></i>Bronze: under 10.00 s</li>
+            </ul>
+          </div>
+          <div class="stage">
+            <div class="hud">
+              <div><span class="label">Time</span><b id="dashTime">0.00</b></div>
+              <div style="text-align:right"><span class="label">Distance</span><b><span id="dashDist">0</span> m</b></div>
+            </div>
+            <div class="dash-field">
+              <div class="dash-lanes">
+                <div class="dash-lane"><span class="label">Pacer</span><div id="dashGhost" class="runner ghost" data-sprite></div></div>
+                <div class="dash-lane you"><span class="label">You</span><div id="dashYou" class="runner" data-sprite></div></div>
+              </div>
+              <div class="dash-marks" aria-hidden="true"><span>0 m</span><span>20 m</span><span>40 m</span><span>60 m</span></div>
+            </div>
+            <p id="dashNote" class="stage-note" aria-live="polite">Tap the button to start. Keep tapping!</p>
+            <button id="dashBtn" type="button" class="tap-btn">Tap to start</button>
+          </div>
+        </div>
+
+        <!-- Event 3: Long Jump -->
+        <div class="ev-panel" role="tabpanel" id="ev-jump" aria-labelledby="tab-jump" hidden>
+          <div class="ev-info">
+            <h3>Long Jump</h3>
+            <p>Tap once to start your run-up. Tap again to take off as close to the white board as you can. Step past the red line and it is a foul.</p>
+            <figure class="ev-clip">
+              <video id="jumpClip" poster="jumping-poster.jpg" muted loop playsinline preload="none" aria-label="Video of Shanily's long jump"><source src="jumping.mp4" type="video/mp4"><source src="jumping.webm" type="video/webm"></video>
+              <figcaption class="label">The real thing: my long jump</figcaption>
+            </figure>
+            <ul class="goals">
+              <li><i class="g-gold"></i>Gold: 7.20 m or more</li>
+              <li><i class="g-silver"></i>Silver: 6.30 m or more</li>
+              <li><i class="g-bronze"></i>Bronze: 5.20 m or more</li>
+            </ul>
+          </div>
+          <div class="stage">
+            <div class="hud">
+              <div><span class="label">Last jump</span><b id="jumpLast">–</b></div>
+              <div style="text-align:right"><span class="label">Best</span><b id="jumpBest">–</b></div>
+            </div>
+            <div id="jumpField" class="jump-field" aria-hidden="true">
+              <div class="jf-runway"></div>
+              <div class="jf-board"></div>
+              <div class="jf-pit">
+                <span class="jf-tick" style="left:33.3%">3 m</span>
+                <span class="jf-tick" style="left:55.6%">5 m</span>
+                <span class="jf-tick" style="left:77.8%">7 m</span>
+              </div>
+              <div id="jumpRunner" class="runner" data-sprite></div>
+              <div id="jumpMark" class="jf-mark" hidden><span></span></div>
+              <div id="jumpFlag" class="jf-flag" hidden>FOUL</div>
+            </div>
+            <p id="jumpNote" class="stage-note" aria-live="polite">Tap to start your run-up.</p>
+            <button id="jumpBtn" type="button" class="tap-btn">Start run-up</button>
+          </div>
+        </div>
+
+        <!-- Event 4: Hurdles -->
+        <div class="ev-panel" role="tabpanel" id="ev-hurdles" aria-labelledby="tab-hurdles">
+          <div class="ev-info">
+            <h3>Hurdles</h3>
+            <p>Your runner goes on their own and gets faster. Tap the track or press Space to jump each hurdle. Knock one and the race is over.</p>
+            <ul class="goals">
+              <li><i class="g-gold"></i>Gold: clear 12 hurdles</li>
+              <li><i class="g-silver"></i>Silver: clear 7 hurdles</li>
+              <li><i class="g-bronze"></i>Bronze: clear 3 hurdles</li>
+            </ul>
+          </div>
+          <div id="hurdleStage" class="stage hurdle-stage" tabindex="0" role="button" aria-label="Hurdles game. Tap or press Space to jump.">
+            <canvas id="hurdleCanvas" aria-hidden="true"></canvas>
+            <div class="hurdle-hud">
+              <div><span class="label">Cleared</span><b id="hurdleScore" class="num" style="display:block;font-size:1.6rem;line-height:1.1">0</b></div>
+              <div style="text-align:right"><span class="label">Best</span><b id="hurdleBest" class="num" style="display:block;font-size:1.6rem;line-height:1.1">0</b></div>
+            </div>
+            <div id="hurdleMsg" class="hurdle-msg"><b>Tap to start</b><span>Tap or press Space to jump each hurdle.</span></div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="band" aria-labelledby="aboutTitle">
+      <div class="gutter"><div class="wrap">
+        <div class="sec-head">
+          <p class="label">About me</p>
+          <h2 id="aboutTitle" class="sec-title display">From Tabango<br>to the <em>UC track</em></h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I'm Shanily, a <span data-age>21</span>-year-old from Tabango, Leyte, now in my third year of
+              BS Information Technology at the University of Cebu Main.
+            </p>
+            <p>
+              My days run on two schedules. On the track I compete as a student-athlete in sprints and jumps.
+              In class I'm still learning the IT side, one project at a time. I'm not a pro at coding yet,
+              and I use AI tools to help me build and understand my work. The track taught me that you get
+              better by showing up and trying again, and I bring that into the classroom too.
+            </p>
+            <p class="label" style="margin-top:26px">Interests</p>
+            <div class="chips">
+              <span class="chip" data-interact>Track &amp; Field</span>
+              <span class="chip" data-interact>Sprints &amp; jumps</span>
+              <span class="chip" data-interact>Technology</span>
+              <span class="chip" data-interact>Manhwa</span>
+              <span class="chip" data-interact>Online games</span>
+              <span class="chip" data-interact>TikTok</span>
+            </div>
+          </div>
+
+          <dl class="facts">
+            <div><dt class="label">Born</dt><dd>April 9, 2005</dd></div>
+            <div><dt class="label">Age</dt><dd><span data-age>21</span></dd></div>
+            <div><dt class="label">Hometown</dt><dd>Tabango, Leyte</dd></div>
+            <div><dt class="label">Based in</dt><dd>Cebu City</dd></div>
+            <div><dt class="label">Program</dt><dd>BSIT, 3rd year</dd></div>
+            <div><dt class="label">Team</dt><dd>UC Main Track &amp; Field</dd></div>
+          </dl>
+        </div>
+
+        <ol class="legs" aria-label="Education and roots, in order">
+          <li class="leg">
+            <p class="label">Leg 1 · Roots</p>
+            <h3>Tabango, Leyte</h3>
+            <p>Hometown in the province of Leyte, where it all started.</p>
+          </li>
+          <li class="leg">
+            <p class="label">Leg 2 · Elementary</p>
+            <h3>Labangon Elementary School</h3>
+            <p>Grade school years in Labangon, Cebu City.</p>
+          </li>
+          <li class="leg">
+            <p class="label">Leg 3 · High School</p>
+            <h3>University of Cebu Main</h3>
+            <p>High school at UC Main, the campus that became home base.</p>
+          </li>
+          <li class="leg is-now">
+            <p class="label">Leg 4 · College <span class="now-chip">Now</span></p>
+            <h3>University of Cebu Main</h3>
+            <p>BS Information Technology, 3rd year, and a Track &amp; Field student-athlete.</p>
+          </li>
+        </ol>
+      </div></div>
+    </section>
+
+    <!-- THE ATHLETE'S MAP -->
+    <section id="map" class="band" aria-labelledby="mapTitle">
+      <div class="gutter"><div class="wrap">
+        <div class="sec-head">
+          <p class="label">Where track &amp; field has taken me</p>
+          <h2 id="mapTitle" class="sec-title display">The Athlete's <em>Map</em></h2>
+          <p class="sec-intro">Being an athlete has taken me places. These are the cities I've traveled to for track &amp; field competitions, all the way up to the <strong class="hl-text">national level</strong>. Each passport page below is one of those trips.</p>
+          <p class="map-how"><span class="map-how-dot" aria-hidden="true"></span>Tap a passport page to stamp it, and collect all six.</p>
+          <div class="map-stats">
+            <span><b>National</b> level</span>
+            <span>From <b>Cebu</b></span>
+            <span id="stampStat">Stamps <b id="stampCount">0</b> / 6</span>
+            <span><b>2</b> island groups</span>
+          </div>
+        </div>
+
+        <div class="passports">
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Palawan. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → PPS</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">PPS</p>
+                <h3 class="pp-city">Palawan</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Puerto Princesa</dd></div>
+                  <div><dt>Region</dt><dd>MIMAROPA</dd></div>
+                  <div><dt>Island group</dt><dd>Luzon</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>PPS</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;PPS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Manila. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → MNL</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">MNL</p>
+                <h3 class="pp-city">Manila</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Metro Manila</dd></div>
+                  <div><dt>Region</dt><dd>NCR</dd></div>
+                  <div><dt>Island group</dt><dd>Luzon</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>MNL</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;MNL&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Iloilo. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → ILO</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">ILO</p>
+                <h3 class="pp-city">Iloilo</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Iloilo City</dd></div>
+                  <div><dt>Region</dt><dd>Western Visayas</dd></div>
+                  <div><dt>Island group</dt><dd>Visayas</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>ILO</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;ILO&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Dumaguete. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → DGT</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">DGT</p>
+                <h3 class="pp-city">Dumaguete</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Dumaguete City</dd></div>
+                  <div><dt>Province</dt><dd>Negros Oriental</dd></div>
+                  <div><dt>Island group</dt><dd>Visayas</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>DGT</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;DGT&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Bacolod. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → BCD</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">BCD</p>
+                <h3 class="pp-city">Bacolod</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Bacolod–Silay</dd></div>
+                  <div><dt>Province</dt><dd>Negros Occidental</dd></div>
+                  <div><dt>Island group</dt><dd>Visayas</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>BCD</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;BCD&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+
+          <article class="passport" tabindex="0" role="button" aria-pressed="false" data-interact aria-label="Bohol. Tap to stamp.">
+            <div class="pp-top"><span class="label">Athlete's passport</span><span class="label">CEB → TAG</span></div>
+            <div class="pp-body">
+              <div class="min-w-0">
+                <p class="pp-code">TAG</p>
+                <h3 class="pp-city">Bohol</h3>
+                <dl class="pp-fields">
+                  <div><dt>Gateway</dt><dd>Panglao</dd></div>
+                  <div><dt>Region</dt><dd>Central Visayas</dd></div>
+                  <div><dt>Island group</dt><dd>Visayas</dd></div>
+                  <div><dt>Purpose</dt><dd>Track &amp; Field</dd></div>
+                </dl>
+              </div>
+              <div class="stamp" aria-hidden="true"><span class="stamp-hint">Tap to<br>stamp</span><span>Admitted</span><strong>TAG</strong><span>Athlete</span></div>
+            </div>
+            <p class="mrz" aria-hidden="true">P&lt;PHLNIERVES&lt;&lt;SHANILY&lt;B&lt;&lt;CEB&lt;TAG&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+          </article>
+        </div>
+
+        <!-- Memory match game -->
+        <div class="match" aria-labelledby="matchTitle">
+          <div class="match-top">
+            <div>
+              <h3 id="matchTitle">Gate Check</h3>
+              <p>Memory game: match each airport code to its destination.</p>
+            </div>
+            <div class="match-meta">
+              <span class="label">Moves <b id="matchMoves">0</b></span>
+              <span class="label">Pairs <b id="matchPairs">0</b> / 6</span>
+              <button id="matchReset" type="button" class="btn-ghost" style="padding:9px 14px">Shuffle</button>
+            </div>
+          </div>
+          <div id="matchGrid" class="match-grid"></div>
+          <p id="matchNote" class="match-note" aria-live="polite">Gold in 8 moves or fewer. Silver in 11 or fewer.</p>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="band" aria-labelledby="skillsTitle">
+      <div class="gutter"><div class="wrap">
+        <div class="sec-head">
+          <p class="label">Skills · self-rated out of 100</p>
+          <h2 id="skillsTitle" class="sec-title display">Fast on the track,<br><em>still learning</em> in the lab</h2>
+          <p class="sec-intro">An honest look at where I am. Each meter is a lane. Tap one to run it again.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>On the track</h3>
+            <div class="meters">
+              <button type="button" class="meter" data-value="92" data-interact aria-label="Sprinting, 92 out of 100, strong. Replay meter.">
+                <span class="meter-top"><span class="meter-name">Sprinting<span class="meter-badge strong">Strong</span></span><span class="meter-val"><b class="meter-num">92</b> / 100</span></span>
+                <span class="meter-lane" aria-hidden="true"><span class="meter-fill" style="--v:92%"></span></span>
+                <span class="meter-foot"><span class="meter-note">Reaction off the blocks, drive phase and top-end speed.</span><span class="meter-hint">Replay</span></span>
+              </button>
+              <button type="button" class="meter" data-value="86" data-interact aria-label="Jumping, 86 out of 100, strong. Replay meter.">
+                <span class="meter-top"><span class="meter-name">Jumping<span class="meter-badge strong">Strong</span></span><span class="meter-val"><b class="meter-num">86</b> / 100</span></span>
+                <span class="meter-lane" aria-hidden="true"><span class="meter-fill" style="--v:86%"></span></span>
+                <span class="meter-foot"><span class="meter-note">Approach rhythm, take-off power and landing control.</span><span class="meter-hint">Replay</span></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>In class</h3>
+            <div class="meters">
+              <button type="button" class="meter" data-value="40" data-interact aria-label="Coding, 40 out of 100, still learning. Replay meter.">
+                <span class="meter-top"><span class="meter-name">Coding<span class="meter-badge">Learning</span></span><span class="meter-val"><b class="meter-num">40</b> / 100</span></span>
+                <span class="meter-lane" aria-hidden="true"><span class="meter-fill" style="--v:40%"></span></span>
+                <span class="meter-foot"><span class="meter-note">Still a beginner. I build with help from AI tools and tutorials, and learn what each part does as I go.</span><span class="meter-hint">Replay</span></span>
+              </button>
+              <button type="button" class="meter" data-value="65" data-interact aria-label="Problem solving, 65 out of 100, growing. Replay meter.">
+                <span class="meter-top"><span class="meter-name">Problem solving<span class="meter-badge">Growing</span></span><span class="meter-val"><b class="meter-num">65</b> / 100</span></span>
+                <span class="meter-lane" aria-hidden="true"><span class="meter-fill" style="--v:65%"></span></span>
+                <span class="meter-foot"><span class="meter-note">Getting better at breaking a big problem into small steps.</span><span class="meter-hint">Replay</span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section id="hobbies" class="band hobbies" aria-labelledby="hobbiesTitle">
+      <div class="gutter"><div class="wrap">
+        <div class="sec-head">
+          <p class="label">Rest days</p>
+          <h2 id="hobbiesTitle" class="sec-title display">Off the <em>track</em></h2>
+          <p class="sec-intro">Recovery matters as much as training. This is how the cool-down looks.</p>
+        </div>
+
+        <div class="hobby-grid">
+          <article class="glass" tabindex="0" data-interact>
+            <div class="glass-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.4"/><path d="M10.5 18.5h3"/><path d="M10.8 8.6v5l4-2.5z" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <h3>Scrolling through TikTok</h3>
+            <p>Short videos between classes and training: trends, quick tutorials and plenty of laughs.</p>
+          </article>
+
+          <article class="glass" tabindex="0" data-interact>
+            <div class="glass-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1.2 6-1.2 9 .8 3-2 6-2 9-.8v13c-3-1.2-6-1.2-9 .8-3-2-6-2-9-.8z"/><path d="M12 6.3v13.4"/></svg>
+            </div>
+            <h3>Reading Manhwa</h3>
+            <p>Korean webcomics read in long vertical strips. "One more chapter" is never just one.</p>
+          </article>
+
+          <article class="glass" tabindex="0" data-interact>
+            <div class="glass-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h10a4 4 0 0 1 4 4v1.5a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.3A3 3 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.6" cy="11" r=".9" fill="currentColor" stroke="none"/><circle cx="17.4" cy="12.9" r=".9" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <h3>Online Gaming</h3>
+            <p>Team matches with friends once practice is done. Fast reactions help here too.</p>
+          </article>
+        </div>
+      </div></div>
+    </section>
+  </main>
+
+  <div class="finish-line" aria-hidden="true"></div>
+  <footer id="siteFooter" class="site-footer gutter">
+    <div class="wrap flex flex-wrap justify-between gap-3">
+      <span>© 2026 Shanily B. Nierves · BSIT, University of Cebu Main</span>
+      <span class="label">You reached the finish line</span>
+    </div>
+  </footer>
+</div>
+
+<!-- =========================================================
+     RUN TRACKER (top right): runner + checkpoints
+     ========================================================= -->
+<aside id="runPanel" class="run-panel" hidden aria-label="Your run">
+  <div class="run-head">
+    <span class="label">Your run</span>
+    <span id="distOut" class="run-dist">0 m</span>
+  </div>
+  <div class="lane" aria-hidden="true"><div id="runner" class="runner" data-sprite></div></div>
+  <div class="run-foot"><span id="lapOut" class="label">Lap 1</span><span class="label">Scroll or tap to run</span></div>
+  <button id="checkToggle" type="button" class="check-toggle" aria-expanded="false" aria-controls="checkList">
+    <span class="label">Checkpoints <span id="checkCount">0</span>/9</span>
+    <span id="checkDots" class="check-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <ol id="checkList" class="check-list" hidden></ol>
+</aside>
+
+<!-- =========================================================
+     MUSIC DOCK (bottom left)
+     ========================================================= -->
+<div id="audioDock" class="dock" hidden>
+  <button id="audioToggle" type="button" class="dock-btn" aria-label="Pause music">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>
+  </button>
+  <div class="dock-meta">
+    <span id="trackState" class="label">Playing</span>
+    <span id="trackName" class="dock-track">Thunderstruck</span>
+  </div>
+  <label class="dock-load" title="Load an MP3 from your device">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    <span class="sr-only">Load an audio file</span>
+    <input id="trackFile" type="file" accept="audio/*" class="sr-only">
+  </label>
+</div>
+
+<!-- Music: put your copy of "Thunderstruck" next to this page as thunderstruck.mp3.
+     If no file is found, an original synthesized training beat plays instead. -->
+<audio id="track" preload="none" loop></audio>
+
+<!-- Reward toasts, confetti and the finish card -->
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div id="finishCard" class="reminder" hidden role="status" aria-live="polite">
+  <span class="rem-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M9.5 2.5h5M18.5 6.5l1.5-1.5"/></svg>
+  </span>
+  <div class="rem-body">
+    <p class="label rem-app">Reminder · now</p>
+    <p id="finishTitle" class="rem-title">45 seconds complete!</p>
+    <p class="rem-text">Thank you for visiting my site.</p>
+  </div>
+  <button id="finishClose" type="button" class="rem-x" aria-label="Dismiss reminder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let started = false;   // becomes true after START RUN
+
+  /* Put the runner sprite into every element marked data-sprite */
+  const tpl = $('#runnerTpl');
+  $$('[data-sprite]').forEach(el => el.appendChild(tpl.content.cloneNode(true)));
+
+  /* ---------- Age (kept accurate from the birth date) ---------- */
+  const now0 = new Date();
+  let age = now0.getFullYear() - 2005;
+  if (now0.getMonth() < 3 || (now0.getMonth() === 3 && now0.getDate() < 9)) age--;
+  $$('[data-age]').forEach(el => { el.textContent = age; });
+
+  /* ---------- Sound: music, visualizer and sound effects ---------- */
+  const Sound = (() => {
+    /* The song file must sit in the same folder as this page. These names are tried in order,
+       so the original download name and a doubled ".mp3.mp3" (hidden extensions on Windows) still work. */
+    const TRACKS = ['thunderstruck.mp3', 'thunderstruck.mp3.mp3', 'Thunderstruck.mp3',
+                    'ACDC_-_Thunderstruck.mp3', 'ACDC - Thunderstruck.mp3', 'f3e38d3c-ACDC_-_Thunderstruck.mp3'];
+    const TRACK_NAME = 'Thunderstruck';
+    /* Opened from a folder (file://), browsers mute songs routed through Web Audio,
+       so the song then plays directly and the visualizer bars animate on their own. */
+    const canTap = /^https?:$/.test(location.protocol);
+    let tapped = false;
+    const VOLUME = 0.75;
+    const BPM = 108, STEP = 60 / BPM / 4;
+
+    const el = $('#track');
+    const dock = $('#audioDock'), btn = $('#audioToggle');
+    const nameEl = $('#trackName'), stateEl = $('#trackState'), fileIn = $('#trackFile');
+    const bars = $$('#audioToggle .eq i');
+
+    let ctx = null, master, analyser, freq, noiseBuf;
+    let mode = null, playing = false, timer = null, nextTime = 0, step = 0, vizRaf = 0;
+
+    function setup() {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = 0;
+      analyser = ctx.createAnalyser(); analyser.fftSize = 128; analyser.smoothingTimeConstant = 0.78;
+      freq = new Uint8Array(analyser.frequencyBinCount);
+      master.connect(analyser); analyser.connect(ctx.destination);
+      if (canTap) { try { ctx.createMediaElementSource(el).connect(master); tapped = true; } catch (e) { /* plays directly */ } }
+      noiseBuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.5), ctx.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      return true;
+    }
+
+    function tone(t, f, dur, type, vol, dest, fEnd) {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, t);
+      if (fEnd) o.frequency.exponentialRampToValueAtTime(fEnd, t + dur);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.01); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      o.connect(g).connect(dest); o.start(t); o.stop(t + dur + 0.02);
+    }
+    function noise(t, dur, type, f, vol, dest) {
+      const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+      s.buffer = noiseBuf; fl.type = type; fl.frequency.value = f;
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      s.connect(fl).connect(g).connect(dest); s.start(t); s.stop(t + dur + 0.02);
+    }
+
+    /* Original synthesized training beat (used when no MP3 is available) */
+    const ROOTS = [82.41, 82.41, 65.41, 73.42];
+    const CHORDS = [[329.63, 392, 493.88], [329.63, 392, 493.88], [261.63, 329.63, 392], [293.66, 369.99, 440]];
+    const KICKS = new Set([0, 6, 8, 11]), BASS = new Set([0, 3, 6, 8, 11, 14]);
+    function playStep(s, t) {
+      const bar = Math.floor(s / 16), i = s % 16;
+      if (KICKS.has(i)) tone(t, 150, 0.35, 'sine', 1, master, 42);
+      if (i === 4 || i === 12) { noise(t, 0.18, 'bandpass', 1800, 0.55, master); tone(t, 220, 0.1, 'triangle', 0.3, master); }
+      if (i % 2 === 0) noise(t, i === 14 ? 0.12 : 0.04, 'highpass', 7000, i === 14 ? 0.16 : 0.1, master);
+      if (BASS.has(i)) tone(t, i === 14 ? ROOTS[bar] * 2 : ROOTS[bar], STEP * 1.7, 'sawtooth', 0.22, master);
+      if (i === 0 || (bar === 3 && i === 10)) CHORDS[bar].forEach(f => tone(t, f, 0.22, 'square', 0.05, master));
+    }
+    function schedule() {
+      while (nextTime < ctx.currentTime + 0.12) { playStep(step, nextTime); nextTime += STEP; step = (step + 1) % 64; }
+    }
+    function runSynth() { clearInterval(timer); nextTime = ctx.currentTime + 0.06; timer = setInterval(schedule, 25); }
+    function stopSynth() { clearInterval(timer); timer = null; }
+    function useSynth() {
+      if (!ctx) { nameEl.textContent = 'Audio not supported'; return; }
+      mode = 'synth'; nameEl.textContent = 'Training beat';
+      if (playing) runSynth();
+    }
+
+    function fadeElement(to, dur) {
+      const from = el.volume, t0 = performance.now();
+      const step = now => {
+        const k = Math.min(1, (now - t0) / (dur * 1000));
+        el.volume = Math.max(0, Math.min(1, from + (to - from) * k));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    function fade(to, dur) {
+      if (mode === 'file' && !tapped) fadeElement(to, dur);
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(master.gain.value, t);
+      master.gain.linearRampToValueAtTime(to, t + dur);
+    }
+    function render() {
+      dock.classList.toggle('is-paused', !playing);
+      btn.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+      stateEl.textContent = playing ? 'Playing' : 'Paused';
+    }
+
+    function start() {                           // runs inside the START RUN click
+      if (!ctx) setup();
+      if (ctx) ctx.resume();
+      dock.hidden = false;
+      requestAnimationFrame(() => dock.classList.add('is-in'));
+      playing = true; render(); fade(VOLUME, 0.4);
+      tryTrack(0);
+      loopViz();
+    }
+    function tryTrack(i) {
+      if (i >= TRACKS.length) {
+        console.warn('Song not found. Put ' + TRACKS[0] + ' in the same folder as this page.');
+        return useSynth();
+      }
+      el.src = TRACKS[i];
+      el.volume = tapped ? 1 : VOLUME;
+      el.play()
+        .then(() => {
+          mode = 'file'; nameEl.textContent = TRACK_NAME;
+          if (!playing) el.pause();
+        })
+        .catch(() => tryTrack(i + 1));
+    }
+    function pause() {
+      if (!playing) return;
+      playing = false; render(); fade(0, 0.25);
+      setTimeout(() => { if (!playing) { if (mode === 'file') el.pause(); else stopSynth(); } }, 280);
+    }
+    function play() {
+      if (playing) return;
+      playing = true; render();
+      if (ctx) ctx.resume();
+      if (mode === 'file') el.play().catch(() => {});
+      else if (mode === 'synth') runSynth();
+      fade(VOLUME, 0.35);
+    }
+
+    /* Sound effects for the games (play even when the music is paused) */
+    function fx(kind, onlyIfReady) {
+      if (!ctx) { if (onlyIfReady) return; setup(); }
+      if (!ctx) return;
+      if (ctx.state === 'suspended') ctx.resume();
+      const t = ctx.currentTime + 0.01, out = ctx.createGain();
+      out.gain.value = 0.5; out.connect(ctx.destination);
+      switch (kind) {
+        case 'gun':   noise(t, 0.3, 'bandpass', 1400, 1, out); tone(t, 110, 0.25, 'sine', 0.9, out, 40); break;
+        case 'stamp': tone(t, 130, 0.14, 'sine', 0.9, out, 50); noise(t, 0.07, 'lowpass', 700, 0.6, out); break;
+        case 'tick':  tone(t, 1250, 0.035, 'square', 0.05, out); break;
+        case 'jump':  tone(t, 300, 0.18, 'triangle', 0.25, out, 720); break;
+        case 'land':  noise(t, 0.25, 'lowpass', 500, 0.8, out); break;
+        case 'flip':  tone(t, 520, 0.06, 'triangle', 0.12, out, 760); break;
+        case 'good':  tone(t, 660, 0.12, 'square', 0.1, out); tone(t + 0.1, 990, 0.18, 'square', 0.1, out); break;
+        case 'bad':   tone(t, 200, 0.25, 'sawtooth', 0.15, out, 110); break;
+        case 'medal': [784, 988, 1175, 1568].forEach((f, i) => tone(t + i * 0.08, f, 0.22, 'square', 0.08, out)); break;
+        case 'win':   [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(t + i * 0.11, f, 0.3, 'square', 0.1, out)); break;
+      }
+    }
+
+    function loopViz() {
+      cancelAnimationFrame(vizRaf);
+      const BINS = [0, 2, 4, 8, 14];
+      const tick = () => {
+        let vals = [0, 0, 0, 0, 0];
+        if (playing && analyser && (mode !== 'file' || tapped)) {
+          analyser.getByteFrequencyData(freq); vals = BINS.map(b => freq[b] / 255);
+        } else if (playing && mode === 'file') {      // song playing directly: animated bars
+          const t = performance.now();
+          vals = BINS.map((b, i) => 0.3 + 0.6 * Math.abs(Math.sin(t / (170 + i * 43) + i * 1.7)));
+        }
+        bars.forEach((bar, i) => { bar.style.transform = `scaleY(${Math.max(0.18, vals[i]).toFixed(3)})`; });
+        vizRaf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    btn.addEventListener('click', () => (playing ? pause() : play()));
+    fileIn.addEventListener('change', () => {
+      const file = fileIn.files && fileIn.files[0];
+      if (!file) return;
+      if (!ctx) setup();
+      stopSynth();
+      el.src = URL.createObjectURL(file);
+      mode = 'file';
+      nameEl.textContent = file.name.replace(/\.[^.]+$/, '');
+      playing = false; play();
+    });
+
+    return { start, fx };
+  })();
+
+  /* ---------- Toasts: small reward pop-ups ---------- */
+  const Toasts = (() => {
+    const box = $('#toasts');
+    const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+    const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>';
+    function show(title, text, variant) {
+      const t = document.createElement('div');
+      t.className = 'ach' + (variant ? ' ' + variant : '');
+      t.innerHTML = `<span class="ach-icon" aria-hidden="true">${variant ? STAR : CHECK}</span><span><b></b><span></span></span>`;
+      $('b', t).textContent = title;
+      $('span span', t).textContent = text;
+      box.appendChild(t);
+      while (box.children.length > 3) box.firstElementChild.remove();
+      requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('in')));
+      setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 450); }, 3800);
+    }
+    return { show };
+  })();
+
+  /* ---------- Confetti (canvas micro-animation) ---------- */
+  const Confetti = (() => {
+    const cv = $('#confetti'), cx = cv.getContext('2d');
+    const COLORS = ['#E50914', '#FF3B45', '#F4F1F1', '#FFB3B7', '#F2C14E'];
+    let parts = [], raf = 0, W = 0, H = 0;
+    function size() {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function piece(x, y, angle, speed) {
+      return { x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, w: 5 + Math.random() * 6, h: 8 + Math.random() * 9,
+        r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3, t: Math.random() * 6.28, c: COLORS[Math.floor(Math.random() * COLORS.length)] };
+    }
+    function fire(small) {
+      size(); parts = [];
+      const n = reduceMotion ? 25 : (small ? 45 : 110), base = Math.sqrt(H) * 0.78;
+      for (let i = 0; i < n; i++) {
+        parts.push(piece(0, H, -Math.PI / 3 + (Math.random() - 0.5) * 0.6, base * (0.7 + Math.random() * 0.5)));
+        parts.push(piece(W, H, -2 * Math.PI / 3 + (Math.random() - 0.5) * 0.6, base * (0.7 + Math.random() * 0.5)));
+      }
+      cancelAnimationFrame(raf);
+      const t0 = performance.now();
+      const loop = now => {
+        cx.clearRect(0, 0, W, H);
+        for (const p of parts) {
+          p.vx *= 0.985; p.vy = p.vy * 0.985 + 0.32;
+          p.x += p.vx; p.y += p.vy; p.r += p.vr; p.t += 0.12;
+          cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.scale(1, Math.cos(p.t));
+          cx.fillStyle = p.c; cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          cx.restore();
+        }
+        parts = parts.filter(p => p.y < H + 40);
+        if (parts.length && now - t0 < 7000) raf = requestAnimationFrame(loop);
+        else cx.clearRect(0, 0, W, H);
+      };
+      raf = requestAnimationFrame(loop);
+    }
+    return { fire };
+  })();
+
+  /* ---------- Checkpoints: goals that keep the visitor exploring ---------- */
+  const Checkpoints = (() => {
+    const LIST = [
+      { id: 'clip',    text: 'Watch my real long jump', href: '#top' },
+      { id: 'facts',   text: 'Find 3 fun facts on my race bib', href: '#top' },
+      { id: 'hurdles', text: 'Clear 5 hurdles', href: '#games' },
+      { id: 'dash',    text: 'Finish the 60 m dash', href: '#games' },
+      { id: 'jump',    text: 'Land a long jump', href: '#games' },
+      { id: 'blocks',  text: 'Race the starting blocks', href: '#games' },
+      { id: 'stamps',  text: 'Collect all 6 passport stamps', href: '#map' },
+      { id: 'match',   text: 'Finish the Gate Check memory game', href: '#map' },
+      { id: 'footer',  text: 'Reach the finish line', href: '#siteFooter' }
+    ];
+    const done = new Set();
+    const listEl = $('#checkList'), countEl = $('#checkCount'), dots = $$('#checkDots i'), toggle = $('#checkToggle');
+
+    LIST.forEach(c => {
+      const li = document.createElement('li');
+      li.dataset.id = c.id;
+      const a = document.createElement('a');
+      a.href = c.href; a.textContent = c.text;
+      li.appendChild(a);
+      listEl.appendChild(li);
+    });
+    function setOpen(open) { listEl.hidden = !open; toggle.setAttribute('aria-expanded', String(open)); }
+    toggle.addEventListener('click', () => setOpen(listEl.hidden));
+    setOpen(false);   // the list stays closed until the visitor clicks Checkpoints
+
+    function unlock(id, detail) {
+      if (!started || done.has(id)) return;
+      const item = LIST.find(c => c.id === id);
+      if (!item) return;
+      done.add(id);
+      $(`li[data-id="${id}"]`, listEl).classList.add('done');
+      countEl.textContent = done.size;
+      dots.forEach((d, i) => d.classList.toggle('on', i < done.size));
+      Toasts.show(`Checkpoint ${done.size} of ${LIST.length}`, detail || item.text);
+      Sound.fx('good');
+      if (done.size === LIST.length) {
+        setTimeout(() => { Toasts.show('All checkpoints cleared', 'You explored the whole track. Great run!'); Sound.fx('win'); Confetti.fire(true); }, 900);
+      }
+    }
+    return { unlock, get count() { return done.size; }, total: LIST.length };
+  })();
+
+  /* ---------- Medals: best medal per event, shown in the medal table ---------- */
+  const Medals = (() => {
+    const RANK = { bronze: 1, silver: 2, gold: 3 };
+    const NAMES = { blocks: 'Starting Blocks', dash: '60 m Dash', jump: 'Long Jump', hurdles: 'Hurdles', match: 'Gate Check' };
+    const won = {};
+    const cells = { gold: $('#mtGold'), silver: $('#mtSilver'), bronze: $('#mtBronze') };
+    const nums = { gold: $('#mGold'), silver: $('#mSilver'), bronze: $('#mBronze') };
+    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+    function award(ev, medal, detail) {
+      if (!medal || (RANK[won[ev]] || 0) >= RANK[medal]) return;
+      won[ev] = medal;
+      const tally = { gold: 0, silver: 0, bronze: 0 };
+      Object.values(won).forEach(m => tally[m]++);
+      Object.keys(nums).forEach(k => { nums[k].textContent = tally[k]; });
+      const cell = cells[medal];
+      cell.classList.remove('pop'); void cell.offsetWidth; cell.classList.add('pop');
+      const dot = $('#medal-' + ev);
+      if (dot) dot.className = 'ev-medal ' + medal;
+      Toasts.show(`${cap(medal)} medal · ${NAMES[ev]}`, detail, medal);
+      Sound.fx('medal');
+    }
+    /* Pick a medal from three thresholds. lowerIsBetter for times. */
+    function pick(value, [g, s, b], lowerIsBetter) {
+      if (lowerIsBetter) return value < g ? 'gold' : value < s ? 'silver' : value < b ? 'bronze' : null;
+      return value >= g ? 'gold' : value >= s ? 'silver' : value >= b ? 'bronze' : null;
+    }
+    return { award, pick, get total() { return Object.keys(won).length; } };
+  })();
+
+  /* ---------- Stride: tracker runner moves with scrolling and interaction ---------- */
+  const Stride = (() => {
+    const LAP = 400;
+    const runner = $('#runner'), distOut = $('#distOut'), lapOut = $('#lapOut');
+    let dist = 0, active = false, lastY = 0, lastP = 0, idleTimer = 0, lastHover = 0;
+
+    function draw() {
+      const p = (dist % LAP) / LAP;
+      if (p < lastP) {
+        runner.classList.add('no-anim');
+        runner.style.setProperty('--p', p);
+        void runner.offsetWidth;
+        runner.classList.remove('no-anim');
+      } else {
+        runner.style.setProperty('--p', p);
+      }
+      lastP = p;
+      distOut.textContent = Math.floor(dist) + ' m';
+      lapOut.textContent = 'Lap ' + (Math.floor(dist / LAP) + 1);
+    }
+    function add(m) {
+      if (!active || m <= 0) return;
+      dist += m; draw();
+      runner.classList.add('is-running');
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => runner.classList.remove('is-running'), 650);
+    }
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY, dy = Math.abs(y - lastY);
+      lastY = y; add(Math.min(dy / 5, 30));
+    }, { passive: true });
+    document.addEventListener('pointerdown', e => add(e.target.closest('a, button, label, [data-interact], [role="button"]') ? 4 : 2));
+    document.addEventListener('keydown', () => add(2));
+    document.addEventListener('pointerover', e => {
+      const now = performance.now();
+      if (now - lastHover > 250 && e.target.closest('[data-interact]')) { lastHover = now; add(2); }
+    });
+    return {
+      enable() {
+        lastY = window.scrollY; active = true;
+        const panel = $('#runPanel');
+        panel.hidden = false;
+        requestAnimationFrame(() => panel.classList.add('is-in'));
+      },
+      get distance() { return dist; }
+    };
+  })();
+
+  /* ---------- Hero: typing role line ---------- */
+  const Typer = (() => {
+    const el = $('#roleWord');
+    const WORDS = ['a sprinter.', 'a long jumper.', 'an IT student.', 'hooked on manhwa.', 'a gamer.', 'always learning.'];
+    let w = 0, i = WORDS[0].length, deleting = true;
+    function tick() {
+      const word = WORDS[w];
+      if (deleting) {
+        i--; el.textContent = word.slice(0, i);
+        if (i === 0) { deleting = false; w = (w + 1) % WORDS.length; }
+        return setTimeout(tick, 40);
+      }
+      i++; el.textContent = WORDS[w].slice(0, i);
+      if (i === WORDS[w].length) { deleting = true; return setTimeout(tick, 1600); }
+      setTimeout(tick, 80);
+    }
+    return {
+      start() {
+        if (reduceMotion) setInterval(() => { w = (w + 1) % WORDS.length; el.textContent = WORDS[w]; }, 2200);
+        else setTimeout(tick, 1600);
+      }
+    };
+  })();
+
+  /* ---------- Hero: pick a lane (changes by itself until the visitor picks one) ---------- */
+  const LanePick = (() => {
+    const tabs = $$('.lp-tab'), card = $('.lp-card'), icon = $('#lpIcon'), kind = $('#lpKind'), value = $('#lpValue');
+    const copyBtn = $('#lpCopy'), link = $('#lpLink');
+    const ICONS = {
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>',
+      fb:   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z"/></svg>',
+      phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 0 0 6.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>'
+    };
+    const CONTACTS = [
+      { icon: 'mail',  kind: 'Email me',        value: 'shanilynierves@gmail.com', copy: 'shanilynierves@gmail.com' },
+      { icon: 'fb',    kind: 'Add me on Facebook', value: 'Shanily Nierves',       href: 'https://www.facebook.com/Shanily.Nierves' },
+      { icon: 'phone', kind: 'Text or call me',  value: '0968 201 1265',           copy: '09682011265' }
+    ];
+    let timer = 0, auto = true, current = 0, resetTimer = 0;
+
+    function show(n, byUser) {
+      if (byUser) { auto = false; clearTimeout(timer); }
+      current = n;
+      const c = CONTACTS[n];
+      tabs.forEach((t, k) => { t.setAttribute('aria-pressed', String(k === n)); t.classList.remove('is-timing'); });
+      card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+      icon.innerHTML = ICONS[c.icon];
+      kind.textContent = c.kind;
+      value.textContent = c.value;
+      copyBtn.hidden = !c.copy; link.hidden = !c.href;
+      copyBtn.textContent = 'Copy'; copyBtn.classList.remove('done');
+      if (c.href) link.href = c.href;
+      if (auto) {
+        void tabs[n].offsetWidth; tabs[n].classList.add('is-timing');
+        timer = setTimeout(() => show((n + 1) % CONTACTS.length), 4500);
+      }
+    }
+    function copied(ok) {
+      copyBtn.textContent = ok ? 'Copied!' : 'Selected';
+      copyBtn.classList.add('done');
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('done'); }, 1800);
+    }
+    function selectValue() {
+      const r = document.createRange(); r.selectNodeContents(value);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+    copyBtn.addEventListener('click', () => {
+      auto = false; clearTimeout(timer); tabs.forEach(t => t.classList.remove('is-timing'));
+      const text = CONTACTS[current].copy;
+      const fallback = () => { selectValue(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} copied(ok); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => copied(true), fallback);
+      else fallback();
+    });
+    link.addEventListener('click', () => { auto = false; clearTimeout(timer); tabs.forEach(t => t.classList.remove('is-timing')); });
+    tabs.forEach((t, k) => t.addEventListener('click', () => show(k, true)));
+    show(0); auto = true; clearTimeout(timer);   // filled in at rest; rotation begins after START RUN
+    return { start() { auto = true; show(0); } };
+  })();
+
+  /* ---------- Real photo and long-jump video ---------- */
+  const Clips = (() => {
+    const card = $('#photoCard'), clip = $('#heroClip'), credit = $('#photoCredit'), evClip = $('#jumpClip');
+    const btns = $$('.media-btn'), clipBtn = $('.media-btn[data-media="clip"]');
+    function setMode(mode) {
+      const showClip = mode === 'clip';
+      btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.media === mode)));
+      clip.hidden = !showClip; credit.hidden = showClip;
+      if (showClip) clip.play().catch(() => { setMode('photo'); clipBtn.hidden = true; });
+      else clip.pause();
+    }
+    btns.forEach(b => b.addEventListener('click', () => { clipBtn.classList.remove('hint'); setMode(b.dataset.media); }));
+    [clip, evClip].forEach(v => v.addEventListener('playing', () => Checkpoints.unlock('clip', 'You watched my real long jump')));
+    return {
+      hint() { clipBtn.classList.add('hint'); },
+      jumpTab(on) { if (on) evClip.play().catch(() => {}); else evClip.pause(); }
+    };
+  })();
+
+  /* ---------- Race bib: flip for fun facts ---------- */
+  (() => {
+    const bib = $('#bib'), tag = $('#bibTag'), label = $('#bfLabel'), text = $('#bfText'), next = $('#bfNext');
+    const FACTS = [
+      'I have a serious sweet tooth. Dessert counts as recovery, right?',
+      'I enjoy being alone. Quiet time is how I recharge, like a cool-down after a race.',
+      '10+ years as an athlete, and I still run out of breath fast. Good thing I sprint and jump!'
+    ];
+    let i = 0;
+    function render(swap) {
+      label.textContent = `Fun fact ${i + 1} of ${FACTS.length}`;
+      text.textContent = FACTS[i];
+      next.textContent = i < FACTS.length - 1 ? 'Tap for the next one' : 'Tap to flip back';
+      if (swap) { text.classList.remove('swap'); void text.offsetWidth; text.classList.add('swap'); }
+    }
+    bib.addEventListener('click', () => {
+      tag.hidden = true;
+      if (!bib.classList.contains('flipped')) { i = 0; render(false); bib.classList.add('flipped'); }
+      else if (i < FACTS.length - 1) {
+        i++; render(true);
+        if (i === FACTS.length - 1) Checkpoints.unlock('facts', 'You found all 3 fun facts');
+      } else { bib.classList.remove('flipped'); }
+      Sound.fx('flip');
+    });
+  })();
+
+  /* ---------- Hero: photo with fallback and 3D tilt ---------- */
+  (() => {
+    const card = $('#photoCard'), img = $('#photo');
+    const fail = () => card.classList.add('no-photo');
+    img.addEventListener('error', fail);
+    if (img.complete && img.naturalWidth === 0) fail();
+    if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.transform = `perspective(800px) rotateX(${((0.5 - y) * 12).toFixed(2)}deg) rotateY(${((x - 0.5) * 14).toFixed(2)}deg) scale(1.02)`;
+        card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    }
+  })();
+
+  /* Helper: a control that reacts on press (pointer or Space/Enter), not on release */
+  function onPress(el, fn) {
+    el.addEventListener('pointerdown', e => { if (e.button === 0) { e.preventDefault(); el.focus({ preventScroll: true }); fn(); } });
+    el.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowUp') { e.preventDefault(); if (!e.repeat) fn(); }
+    });
+  }
+
+  /* ---------- Event 1: Starting blocks (reaction time) ---------- */
+  const Blocks = (() => {
+    const pad = $('#blocksPad'), word = $('#padWord'), sub = $('#padSub');
+    const lastEl = $('#rtLast'), bestEl = $('#rtBest'), triesEl = $('#rtTries'), bestTab = $('#best-blocks');
+    let state = 'idle', timers = [], t0 = 0, best = Infinity, tries = 0;
+    const set = (s, w, sb) => { state = s; pad.dataset.state = s; word.textContent = w; sub.textContent = sb; };
+    const clear = () => { timers.forEach(clearTimeout); timers = []; };
+    const fmt = ms => (ms / 1000).toFixed(3) + ' s';
+
+    function verdict(ms) {
+      if (ms < 100) return 'Under 0.100 s. An official would call that a false start!';
+      if (ms < 200) return 'Elite reflexes. Ready for the final.';
+      if (ms < 260) return 'Quick off the blocks!';
+      if (ms < 350) return 'Solid start. Can you go faster?';
+      return 'Still settling into the blocks. Try again!';
+    }
+    function begin() {
+      clear();
+      set('marks', 'On your marks', 'Wait for GO…');
+      timers.push(setTimeout(() => set('set', 'Set', 'Wait for GO…'), 900));
+      timers.push(setTimeout(() => { set('go', 'GO!', 'Tap now!'); t0 = performance.now(); Sound.fx('gun'); }, 2000 + Math.random() * 1800));
+    }
+    function act() {
+      if (state === 'idle' || state === 'result' || state === 'false') return begin();
+      if (state === 'marks' || state === 'set') {
+        clear(); set('false', 'False start!', 'You moved before GO. Tap to line up again.');
+        Sound.fx('bad');
+        return;
+      }
+      if (state === 'go') {
+        const ms = Math.round(performance.now() - t0);
+        tries++; best = Math.min(best, ms);
+        set('result', fmt(ms), verdict(ms) + ' Tap to race again.');
+        lastEl.textContent = fmt(ms); bestEl.textContent = fmt(best); triesEl.textContent = tries;
+        bestTab.textContent = 'Best ' + fmt(best);
+        Checkpoints.unlock('blocks', 'Reaction time: ' + fmt(ms));
+        if (ms >= 100) Medals.award('blocks', Medals.pick(ms, [200, 260, 350], true), 'Reaction time ' + fmt(ms));
+      }
+    }
+    onPress(pad, act);
+    return { stop() { clear(); set('idle', 'Tap to start', 'Or focus here and press Space'); } };
+  })();
+
+  /* ---------- Event 2: 60 m dash (tap race) ---------- */
+  const Dash = (() => {
+    const LEN = 60, PER_TAP = 1.25, PACER = 8.0;
+    const btn = $('#dashBtn'), you = $('#dashYou'), ghost = $('#dashGhost');
+    const timeEl = $('#dashTime'), distEl = $('#dashDist'), note = $('#dashNote'), bestTab = $('#best-dash');
+    let state = 'idle', pos = 0, shown = 0, t0 = 0, raf = 0, best = Infinity, lastTap = 0, lockUntil = 0;
+
+    function reset() {
+      pos = 0; shown = 0;
+      you.style.setProperty('--p', 0); ghost.style.setProperty('--p', 0);
+      timeEl.textContent = '0.00'; distEl.textContent = '0';
+    }
+    function loop(now) {
+      const el = (now - t0) / 1000;
+      shown += (pos - shown) * 0.3;
+      you.style.setProperty('--p', (shown / LEN).toFixed(4));
+      ghost.style.setProperty('--p', Math.min(1, el / PACER).toFixed(4));
+      timeEl.textContent = el.toFixed(2);
+      distEl.textContent = Math.floor(pos);
+      you.classList.toggle('is-running', now - lastTap < 260);
+      ghost.classList.toggle('is-running', el < PACER);
+      if (state === 'run') raf = requestAnimationFrame(loop);
+    }
+    function tap() {
+      const now = performance.now();
+      if (now < lockUntil) return;
+      if (state !== 'run') {
+        reset(); state = 'run'; t0 = now;
+        btn.textContent = 'Tap! Tap! Tap!';
+        note.textContent = 'Keep tapping until the finish line!';
+        raf = requestAnimationFrame(loop);
+      }
+      lastTap = now;
+      pos = Math.min(LEN, pos + PER_TAP);
+      Sound.fx('tick');
+      if (pos >= LEN) finish(now);
+    }
+    function finish(now) {
+      state = 'done'; cancelAnimationFrame(raf); lockUntil = now + 900;
+      const s = (now - t0) / 1000;
+      you.style.setProperty('--p', 1);
+      ghost.style.setProperty('--p', Math.min(1, s / PACER).toFixed(4));
+      you.classList.remove('is-running'); ghost.classList.remove('is-running');
+      timeEl.textContent = s.toFixed(2); distEl.textContent = LEN;
+      best = Math.min(best, s);
+      bestTab.textContent = 'Best ' + best.toFixed(2) + ' s';
+      note.textContent = (s < PACER ? 'You beat the pacer! ' : 'The pacer got you this time. ') + s.toFixed(2) + ' s over 60 m.';
+      btn.textContent = 'Run again';
+      Checkpoints.unlock('dash', '60 m dash: ' + s.toFixed(2) + ' s');
+      Medals.award('dash', Medals.pick(s, [6.5, 8.0, 10.0], true), '60 m in ' + s.toFixed(2) + ' s');
+    }
+    onPress(btn, tap);
+    return {
+      stop() {
+        if (state !== 'run') return;
+        cancelAnimationFrame(raf); state = 'idle'; reset();
+        you.classList.remove('is-running'); ghost.classList.remove('is-running');
+        btn.textContent = 'Tap to start'; note.textContent = 'Tap the button to start. Keep tapping!';
+      }
+    };
+  })();
+
+  /* ---------- Event 3: long jump (timing) ---------- */
+  const Jump = (() => {
+    const BOARD = 58, PIT_W = 42, PIT_M = 9, RUN_T = 1.8;
+    const runner = $('#jumpRunner'), mark = $('#jumpMark'), flag = $('#jumpFlag');
+    const btn = $('#jumpBtn'), note = $('#jumpNote'), lastEl = $('#jumpLast'), bestEl = $('#jumpBest'), bestTab = $('#best-jump');
+    let state = 'idle', t0 = 0, raf = 0, x = 2, best = 0, lockUntil = 0;
+
+    const place = (px, lift) => {
+      runner.style.left = `calc(${px.toFixed(2)}% - 16px)`;
+      runner.style.transform = lift ? `translateY(${(-lift).toFixed(1)}px)` : '';
+    };
+    function reset() { x = 2; place(x, 0); mark.hidden = true; flag.hidden = true; runner.classList.remove('is-running'); }
+    function runLoop(now) {
+      const k = (now - t0) / 1000 / RUN_T;
+      x = 2 + 60 * Math.pow(k, 1.7);
+      place(x, 0);
+      if (x >= 64) return foul('You ran straight through. Tap before the board!');
+      raf = requestAnimationFrame(runLoop);
+    }
+    function act() {
+      const now = performance.now();
+      if (now < lockUntil) return;
+      if (state === 'idle' || state === 'done') {
+        reset(); state = 'run'; t0 = now;
+        runner.classList.add('is-running');
+        btn.textContent = 'Jump!';
+        note.textContent = 'Take off as close to the white board as you can.';
+        raf = requestAnimationFrame(runLoop);
+        return;
+      }
+      if (state === 'run') {
+        cancelAnimationFrame(raf);
+        if (x > BOARD) return foul('Foul! Your foot crossed the red line.');
+        const gapM = (BOARD - x) * 0.2;
+        const dist = Math.max(1.2, Math.min(8.4, 8.2 - gapM * 1.5 - Math.random() * 0.35));
+        fly(dist, gapM);
+      }
+    }
+    function fly(dist, gapM) {
+      state = 'air';
+      runner.classList.remove('is-running');
+      Sound.fx('jump');
+      const from = x, to = BOARD + dist * (PIT_W / PIT_M);
+      const start = performance.now(), D = reduceMotion ? 1 : 750;
+      const step = now => {
+        const k = Math.min(1, (now - start) / D);
+        place(from + (to - from) * k, Math.sin(Math.PI * k) * 70);
+        if (k < 1) raf = requestAnimationFrame(step);
+        else land(dist, to, gapM);
+      };
+      raf = requestAnimationFrame(step);
+    }
+    function land(dist, to, gapM) {
+      state = 'done'; lockUntil = performance.now() + 600;
+      Sound.fx('land');
+      mark.hidden = false; mark.style.left = to + '%';
+      $('span', mark).textContent = dist.toFixed(2) + ' m';
+      lastEl.textContent = dist.toFixed(2) + ' m';
+      best = Math.max(best, dist);
+      bestEl.textContent = best.toFixed(2) + ' m';
+      bestTab.textContent = 'Best ' + best.toFixed(2) + ' m';
+      note.textContent = `${dist.toFixed(2)} m! You took off ${gapM.toFixed(2)} m before the board.`;
+      btn.textContent = 'Jump again';
+      Checkpoints.unlock('jump', 'Long jump: ' + dist.toFixed(2) + ' m');
+      Medals.award('jump', Medals.pick(dist, [7.2, 6.3, 5.2], false), 'Long jump ' + dist.toFixed(2) + ' m');
+    }
+    function foul(msg) {
+      cancelAnimationFrame(raf);
+      state = 'done'; lockUntil = performance.now() + 600;
+      runner.classList.remove('is-running');
+      flag.hidden = false;
+      note.textContent = msg;
+      lastEl.textContent = 'Foul';
+      btn.textContent = 'Try again';
+      Sound.fx('bad');
+    }
+    reset();
+    onPress(btn, act);
+    return {
+      stop() {
+        if (state !== 'run' && state !== 'air') return;
+        cancelAnimationFrame(raf); state = 'idle'; reset();
+        btn.textContent = 'Start run-up'; note.textContent = 'Tap to start your run-up.';
+      }
+    };
+  })();
+
+  /* ---------- Event 4: hurdles (canvas runner game) ---------- */
+  const Hurdles = (() => {
+    const stage = $('#hurdleStage'), cv = $('#hurdleCanvas'), cx = cv.getContext('2d');
+    const msg = $('#hurdleMsg'), scoreEl = $('#hurdleScore'), bestEl = $('#hurdleBest'), bestTab = $('#best-hurdles');
+    const H = 280, GROUND = H - 52, RX = 90, HH = 34, HW = 14, GRAV = 0.85, JUMP = 13.5;
+    let W = 600, state = 'idle', h = 0, vh = 0, speed = 6, list = [], gap = 300, score = 0, best = 0, raf = 0, last = 0, t = 0, lockUntil = 0, hit = false;
+
+    function size() {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.max(280, stage.clientWidth || 600);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    function start() {
+      state = 'run'; hit = false; h = 0; vh = 0; speed = 6; score = 0; t = 0;
+      list = [{ x: W + 40, passed: false }]; gap = 300;
+      scoreEl.textContent = '0'; msg.hidden = true;
+      last = performance.now();
+      raf = requestAnimationFrame(loop);
+    }
+    function jump() {
+      if (state !== 'run') { if (performance.now() >= lockUntil) start(); return; }
+      if (h === 0) { vh = JUMP; Sound.fx('jump'); }
+    }
+    function loop(now) {
+      const k = Math.min(3, (now - last) / 16.67);
+      last = now; t += k;
+      speed = Math.min(11, speed + 0.0025 * k);
+      if (h > 0 || vh > 0) { h += vh * k; vh -= GRAV * k; if (h <= 0) { h = 0; vh = 0; } }
+      for (const o of list) {
+        o.x -= speed * k;
+        if (!o.passed && o.x + HW < RX - 8) {
+          o.passed = true; score++; scoreEl.textContent = score; Sound.fx('tick');
+          if (score === 5) Checkpoints.unlock('hurdles', '5 hurdles cleared');
+        }
+        if (o.x < RX + 10 && o.x + HW > RX - 8 && h < HH - 2) return crash();
+      }
+      list = list.filter(o => o.x > -30);
+      const lastO = list[list.length - 1];
+      if (!lastO || W - lastO.x > gap) { list.push({ x: W + 20, passed: false }); gap = 230 + Math.random() * 200 + speed * 12; }
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+    function crash() {
+      state = 'over'; hit = true; lockUntil = performance.now() + 700;
+      draw();
+      Sound.fx('bad');
+      best = Math.max(best, score);
+      bestEl.textContent = best;
+      bestTab.textContent = 'Best ' + best + ' cleared';
+      $('b', msg).textContent = 'Knocked a hurdle!';
+      $('span', msg).textContent = `You cleared ${score}. Tap or press Space to race again.`;
+      msg.hidden = false;
+      Medals.award('hurdles', Medals.pick(score, [12, 7, 3], false), score + ' hurdles cleared');
+    }
+    function drawRunner(x, foot, air) {
+      cx.save();
+      cx.strokeStyle = cx.fillStyle = hit ? '#FF3B45' : '#F4F1F1';
+      cx.lineWidth = 3.4; cx.lineCap = 'round'; cx.lineJoin = 'round';
+      const hipX = x, hipY = foot - 22, shX = x + 6, shY = foot - 40;
+      const s = air ? 0 : Math.sin(t * 0.45);
+      cx.beginPath();
+      if (air) {                                     // hurdling pose: lead leg out, trail leg tucked
+        cx.moveTo(hipX, hipY); cx.lineTo(hipX + 20, hipY + 2);
+        cx.moveTo(hipX, hipY); cx.lineTo(hipX - 6, hipY + 10); cx.lineTo(hipX - 16, hipY + 4);
+      } else {
+        [s, -s].forEach(a => {
+          const kx = hipX + Math.sin(a) * 10, ky = hipY + 11;
+          cx.moveTo(hipX, hipY); cx.lineTo(kx, ky); cx.lineTo(kx + Math.sin(a - 0.6) * 9, foot);
+        });
+      }
+      cx.moveTo(hipX, hipY); cx.lineTo(shX, shY);    // body
+      cx.moveTo(shX, shY + 2); cx.lineTo(shX + 9 + s * 4, shY + 10);   // arms
+      cx.moveTo(shX, shY + 2); cx.lineTo(shX - 8 - s * 4, shY + 9);
+      cx.stroke();
+      cx.beginPath(); cx.arc(x + 9, foot - 48, 5.5, 0, Math.PI * 2); cx.fill();
+      cx.restore();
+    }
+    function draw() {
+      cx.clearRect(0, 0, W, H);
+      cx.fillStyle = '#1D1B1D'; cx.fillRect(0, 0, W, H);
+      const g = cx.createLinearGradient(0, GROUND, 0, H);
+      g.addColorStop(0, '#E50914'); g.addColorStop(1, '#8F0610');
+      cx.fillStyle = g; cx.fillRect(0, GROUND, W, H - GROUND);
+      cx.fillStyle = 'rgba(244,241,241,.7)';
+      cx.fillRect(0, GROUND, W, 2); cx.fillRect(0, GROUND + 26, W, 2);
+      const off = (t * speed) % 80;                 // moving lane ticks give a sense of speed
+      cx.fillStyle = 'rgba(255,255,255,.35)';
+      for (let x = -off; x < W; x += 80) cx.fillRect(x, GROUND + 40, 26, 3);
+      for (const o of list) {
+        cx.fillStyle = '#A8A1A4';
+        cx.fillRect(o.x, GROUND - HH, 3, HH); cx.fillRect(o.x + HW - 3, GROUND - HH, 3, HH);
+        cx.fillStyle = '#F4F1F1'; cx.fillRect(o.x - 3, GROUND - HH, HW + 6, 7);
+        cx.fillStyle = '#E50914'; cx.fillRect(o.x + 3, GROUND - HH, 5, 7);
+      }
+      drawRunner(RX, GROUND - h, h > 0);
+    }
+    stage.addEventListener('pointerdown', e => { if (e.button === 0) { e.preventDefault(); stage.focus({ preventScroll: true }); jump(); } });
+    stage.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') { e.preventDefault(); if (!e.repeat) jump(); }
+    });
+    window.addEventListener('resize', () => { if (!$('#ev-hurdles').hidden) size(); });
+    return {
+      size,
+      stop() {
+        if (state !== 'run') return;
+        cancelAnimationFrame(raf); state = 'idle';
+        $('b', msg).textContent = 'Tap to start';
+        $('span', msg).textContent = 'Tap or press Space to jump each hurdle.';
+        msg.hidden = false;
+      }
+    };
+  })();
+
+  Hurdles.size();   // Hurdles is the first event shown
+
+  /* ---------- Event tabs ---------- */
+  (() => {
+    const tabs = $$('.ev-tab');
+    function select(tab, focus) {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        $('#' + t.getAttribute('aria-controls')).hidden = !on;
+      });
+      Blocks.stop(); Dash.stop(); Jump.stop(); Hurdles.stop();
+      if (tab.dataset.ev === 'hurdles') Hurdles.size();
+      Clips.jumpTab(tab.dataset.ev === 'jump');
+      if (focus) tab.focus();
+    }
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t));
+      t.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        select(tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length], true);
+      });
+    });
+  })();
+
+  /* ---------- Passport stamps ---------- */
+  (() => {
+    const cards = $$('.passport'), countEl = $('#stampCount'), stat = $('#stampStat');
+    let count = 0;
+    function stamp(card) {
+      card.classList.remove('slam'); void card.offsetWidth; card.classList.add('slam');
+      if (card.classList.contains('is-stamped')) return;
+      card.classList.add('is-stamped');
+      card.setAttribute('aria-pressed', 'true');
+      card.setAttribute('aria-label', card.getAttribute('aria-label').replace('Tap to stamp.', 'Stamped.'));
+      count++; countEl.textContent = count;
+      Sound.fx('stamp');
+      if (count === cards.length) { stat.classList.add('is-hot'); Checkpoints.unlock('stamps', 'All 6 destinations stamped'); }
+    }
+    cards.forEach(card => {
+      card.addEventListener('click', () => stamp(card));
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stamp(card); } });
+    });
+  })();
+
+  /* ---------- Gate Check: memory match ---------- */
+  (() => {
+    const PAIRS = [['PPS', 'Palawan'], ['MNL', 'Manila'], ['ILO', 'Iloilo'], ['DGT', 'Dumaguete'], ['BCD', 'Bacolod'], ['TAG', 'Bohol']];
+    const grid = $('#matchGrid'), movesEl = $('#matchMoves'), pairsEl = $('#matchPairs'), note = $('#matchNote');
+    let open = [], moves = 0, found = 0, lock = false;
+
+    function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+    function deal() {
+      grid.innerHTML = ''; open = []; moves = 0; found = 0; lock = false;
+      movesEl.textContent = '0'; pairsEl.textContent = '0';
+      note.textContent = 'Gold in 8 moves or fewer. Silver in 11 or fewer.';
+      const cards = shuffle(PAIRS.flatMap((p, i) => [{ id: i, text: p[0], kind: 'code' }, { id: i, text: p[1], kind: 'city' }]));
+      cards.forEach(c => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'mcard'; b.dataset.id = c.id; b.dataset.interact = '';
+        b.setAttribute('aria-label', 'Hidden card');
+        b.innerHTML = `<span class="mcard-inner"><span class="mface back" aria-hidden="true">?</span><span class="mface front ${c.kind}"></span></span>`;
+        $('.front', b).textContent = c.text;
+        b.addEventListener('click', () => flip(b, c));
+        grid.appendChild(b);
+      });
+    }
+    function flip(b, c) {
+      if (lock || b.classList.contains('flipped') || b.classList.contains('matched')) return;
+      b.classList.add('flipped'); b.setAttribute('aria-label', c.text);
+      Sound.fx('flip');
+      open.push(b);
+      if (open.length < 2) return;
+      moves++; movesEl.textContent = moves;
+      const [a, d] = open;
+      if (a.dataset.id === d.dataset.id) {
+        a.classList.add('matched'); d.classList.add('matched'); open = [];
+        found++; pairsEl.textContent = found;
+        Sound.fx('good');
+        if (found === PAIRS.length) complete();
+      } else {
+        lock = true;
+        setTimeout(() => {
+          [a, d].forEach(x => { x.classList.remove('flipped'); x.setAttribute('aria-label', 'Hidden card'); });
+          open = []; lock = false;
+        }, 850);
+      }
+    }
+    function complete() {
+      note.textContent = `All 6 matched in ${moves} moves! Press Shuffle to play again.`;
+      Checkpoints.unlock('match', `Gate Check done in ${moves} moves`);
+      Medals.award('match', moves <= 8 ? 'gold' : moves <= 11 ? 'silver' : 'bronze', `Gate Check in ${moves} moves`);
+    }
+    $('#matchReset').addEventListener('click', deal);
+    deal();
+  })();
+
+  /* ---------- Skill meters ---------- */
+  const Meters = (() => {
+    const meters = $$('.meter');
+    function countUp(m) {
+      const out = $('.meter-num', m), target = Number(m.dataset.value);
+      if (reduceMotion) { out.textContent = target; return; }
+      const t0 = performance.now(), D = 1300;
+      const step = now => {
+        const k = Math.min(1, (now - t0) / D);
+        out.textContent = Math.round(target * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    function play(m) { m.classList.remove('armed', 'play'); void m.offsetWidth; m.classList.add('play'); countUp(m); }
+    function arm() {
+      if (!('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(entries => entries.forEach(en => {
+        if (en.isIntersecting) { play(en.target); io.unobserve(en.target); }
+      }), { threshold: 0.45 });
+      meters.forEach(m => {
+        const r = m.getBoundingClientRect();
+        if (r.top > window.innerHeight || r.bottom < 0) { m.classList.add('armed'); $('.meter-num', m).textContent = '0'; }
+        io.observe(m);
+      });
+    }
+    meters.forEach(m => m.addEventListener('click', () => play(m)));
+    return { arm };
+  })();
+
+  /* ---------- Section highlight in the nav + finish-line checkpoint ---------- */
+  if ('IntersectionObserver' in window) {
+    const links = $$('.nav a');
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      links.forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + en.target.id)));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    $$('main section[id]').forEach(s => io.observe(s));
+    new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) Checkpoints.unlock('footer', 'You reached the finish line');
+    }, { threshold: 0.6 }).observe($('#siteFooter'));
+  }
+
+  /* ---------- 45-second reminder (appears 45 seconds after the page opens) ---------- */
+  const Finish = (() => {
+    const card = $('#finishCard');
+    let hideTimer = 0;
+    function show() {
+      card.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('in')));
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, 10000);
+    }
+    function hide() { card.classList.remove('in'); setTimeout(() => { card.hidden = true; }, 450); }
+    $('#finishClose').addEventListener('click', hide);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !card.hidden) hide(); });
+    return { show };
+  })();
+
+  /* The 45-second sprint begins the moment the page opens. Nothing on screen counts down. */
+  const SPRINT_MS = 45000;
+  setTimeout(() => { Confetti.fire(true); Finish.show(); Sound.fx('good', true); }, SPRINT_MS);
+
+  /* ---------- Welcome overlay: START RUN starts the music ---------- */
+  (() => {
+    const overlay = $('#startOverlay'), startBtn = $('#startRun'), app = $('#app');
+    document.body.classList.add('locked');
+    startBtn.focus({ preventScroll: true });
+    startBtn.addEventListener('click', () => {
+      Sound.start();                              // inside the click so the browser allows audio
+      started = true;
+      overlay.classList.add('is-leaving');
+      document.body.classList.remove('locked');
+      app.inert = false; app.removeAttribute('inert');
+      $('#trackBand').classList.add('is-live');
+      let gone = false;
+      const remove = () => { if (!gone) { gone = true; overlay.hidden = true; } };
+      overlay.addEventListener('transitionend', e => { if (e.target === overlay) remove(); });
+      setTimeout(remove, 900);
+      Meters.arm();
+      Typer.start();
+      LanePick.start();
+      setTimeout(() => Clips.hint(), 2500);
+      setTimeout(() => Stride.enable(), 0);
+    }, { once: true });
+  })();
+})();
+</script>
+
+</body>
+</html>
